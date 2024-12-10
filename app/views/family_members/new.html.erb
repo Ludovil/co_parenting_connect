@@ -1,0 +1,4 @@
+<h1>Submit new family member</h1>
+  <%= f.input :first_name %>
+  <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+  <%= f.input :family_id, as: :hidden, input_html: { value: @family.id } %>
