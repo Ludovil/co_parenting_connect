@@ -1,6 +1,6 @@
 require "test_helper"
 
-class FamilyTest < ActiveSupport::TestCase
+class FamiliesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

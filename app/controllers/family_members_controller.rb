@@ -1,4 +1,5 @@
 class FamilyMembersController < ApplicationController
+
   def new
     @familymember = FamilyMember.new
   end
@@ -12,5 +13,11 @@ class FamilyMembersController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def family_member_params
+    params.require(:family_member).permit(:user_id, :family_id, :creator)
   end
 end

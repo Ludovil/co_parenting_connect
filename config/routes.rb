@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Families
-  resources :families, only: [:show, :edit, :update] do
+  resources :families, only: [:create, :show, :edit, :update] do
     resources :children, only: [:new, :create]
+    resources :family_members, only: [:new, :create]
   end
 
   # Children
@@ -31,12 +32,8 @@ Rails.application.routes.draw do
   # Expenses
   resources :expenses, only: [:show, :edit, :update, :destroy]
 
-
   # Notifications
   resources :notifications, only: [:index]
-
-  # Family members
-  resources :family_members, only: [:new, :create]
 
 
   # Custom Routes
