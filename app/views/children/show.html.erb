@@ -1,0 +1,6 @@
+<h1><%= @child.first_name %> <%= @child.last_name %></h1>
+<p>Birth Date: <%= @child.birth_date %></p>
+
+<%= link_to 'Edit', edit_child_path(@child), class: "btn btn-primary" %> |
+<%= link_to 'Delete', child_path(@child), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> |
+<%= link_to 'Back to Family', family_path(@child.family), class: "btn btn-secondary" %>
