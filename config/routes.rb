@@ -35,6 +35,10 @@ Rails.application.routes.draw do
   # Notifications
   resources :notifications, only: [:index]
 
+  # Family members
+  resources :family_members, only: [:new, :create]
+
+
   # Custom Routes
   get 'dashboard', to: 'users#dashboard'
 
