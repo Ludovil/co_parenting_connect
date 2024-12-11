@@ -1,0 +1,53 @@
+<h1>Dashboard#show</h1>
+<p>Find me in app/views/dashboard/show.html.erb</p>
+
+
+
+<h1>Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
+
+
+<h2>Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
+
+<% if current_user.family %>
+<h3>members :</h3>
+
+
+<%@members.each do |member|%>
+<div><%=member.first_name%></div>
+<%end%>
+
+<h2>Send an invitation</h2>
+
+<%= render 'invitations/form'%>
+
+<h2>Invitations</h2>
+
+<% @invitations.each do |invitation| %>
+  <div>
+    <p>Invitations sent from: <%= invitation.family.name %></p>
+    <p>to <%=invitation.recipient.email%></p>
+    <p>Status: <%= invitation.status %></p>
+
+    <% if invitation.status == 'pending' %>
+      <%= link_to 'Accept', accept_invitation_path(invitation), method: :patch %>
+      <%= link_to 'cancel', reject_invitation_path(invitation), method: :patch %>
+    <% end %>
+  </div>
+<% end %>
+
+
+<% @invits.each do |invitation| %>
+  <div>
+    <p>Invitations received from: <%= invitation.family.name %></p>
+    <p>sent by <%=invitation.user.email%> </p>
+    <p>Status: <%= invitation.status %></p>
+
+    <p><%=invitation.id%></p>
+
+    <% if invitation.status == 'pending' %>
+      <%= button_to 'Accept',  accept_invitation_path(invitation), method: :patch , data: {confirm: "Are you sure ? "}%>
+      <%= link_to 'Reject',  reject_invitation_path(invitation), method: :patch %>
+    <% end %>
+  </div>
+<% end %>
+<%end%>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_09_155516) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_11_132954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_155516) do
     t.index ["user_id"], name: "index_guards_on_user_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "family_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "recipient_id"
+    t.index ["family_id"], name: "index_invitations_on_family_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.boolean "read"
     t.bigint "event_id"
@@ -113,6 +124,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_155516) do
   add_foreign_key "family_members", "users"
   add_foreign_key "guards", "children"
   add_foreign_key "guards", "users"
+  add_foreign_key "invitations", "families"
+  add_foreign_key "invitations", "users"
   add_foreign_key "notifications", "events"
   add_foreign_key "notifications", "expenses"
   add_foreign_key "notifications", "guards"

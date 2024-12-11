@@ -1,6 +1,10 @@
-<h2>Family Members</h2>
+<h2>Your Family</h2>
+<h3>Name : <%=@family.name%></h3>
 <% @family.family_members.each do |member| %>
   <div>
     <%= member.user.first_name %> <%= member.user.last_name %>
+    <% if member.creator %>
+      <span>(Creator)</span>
+    <% end %>
   </div>
 <% end %>

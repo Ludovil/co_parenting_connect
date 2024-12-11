@@ -1,0 +1,7 @@
+<%= simple_form_for(@invitation, url: invitations_path) do |f| %>
+  <div class="form-group">
+    <%= f.input :recipient_email, label: "Send an invitation to the following email address :" %>
+  </div>
+
+  <%= f.submit "Send", class: "btn btn-primary" %>
+<% end %>
