@@ -9,8 +9,14 @@ class DashboardsController < ApplicationController
     @members = []
     if current_user.family
       current_user.family.family_members.each do |family_member|
-        @members << family_member.user
+        if family_member.creator
+          @members << family_member.user.first_name.upcase
+        else
+          @members << family_member.user.first_name
+        end
       end
     end
+    @children = current_user.family ? current_user.family.children : []
+
   end
 end
