@@ -1,0 +1,6 @@
+<%= simple_form_for @family, html: { multipart: true }  do |f| %>
+<%= f.input :name, label: "Name", placeholder: "Enter the name of the family" %>
+ <div class="form-actions">
+    <%= f.button :submit, "Create Family", class: "btn btn-primary" %>
+  </div>
+<% end %>

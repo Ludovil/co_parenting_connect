@@ -1,18 +1,29 @@
 class FamilyMembersController < ApplicationController
 
   def new
-    @familymember = FamilyMember.new
+    @family_member = FamilyMember.new
   end
 
   def create
-    @familymember = FamilyMember.new(familymember_params)
-    @familymember.user = current_user
+    @family = Family.find(params[:family_id])
+    @family_member = FamilyMember.new(family_member_params)
+    @family_member.family_id = params[:family_id]
 
-    if @familymember.save
-      redirect_to @familymember, notice: 'Family member was successfully added.'
+    if @family_member.save
+      redirect_to family_path(@family_member.family), notice: 'Family member was successfully added.'
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @family_member = family_member.find(params[:id])
+  end
+
+  def destroy
+    @family_member = FamilyMember.find(params[:id])
+    @family_member.destroy
+    redirect_to family_family_members_path, status: :see_other
   end
 
   private
