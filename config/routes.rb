@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Families
-  resources :families, only: [:create, :show, :edit, :update] do
+  resources :families, only: [:create, :new, :show, :edit, :update] do
     resources :children, only: [:new, :create]
     resources :family_members, only: [:new, :create]
   end

@@ -4,15 +4,27 @@ class FamiliesController < ApplicationController
   end
 
   def create
-    @family_member = FamilyMember.find(params[:user_id])
-    @family = @family_member.families.new
-    @family.user = current_user
-
+    @family = Family.new(family_params)
     if @family.save
+      @family.family_members.create(
+        user_id: current_user.id,
+        family: @family,
+        creator: true
+      )
       redirect_to @family, notice: 'Family was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @family = Family.find(params[:id])
+  end
+
+  private
+
+  def family_params
+    params.require(:family).permit(:name)
   end
 
 end
