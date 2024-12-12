@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
-  
+
   patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
   patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
-  
+
   # get 'expenses/new'
 
-  patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
-  patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
-
   get 'dashboard/show'
-  
+
 
   devise_for :users
   root to: "pages#home"
@@ -28,7 +25,10 @@ Rails.application.routes.draw do
 
   # Families
   resources :families, only: [:create, :new, :show, :edit, :update] do
-    resources :children, only: [:new, :create]
+    resources :children, only: [:new, :create] do
+
+    end
+
     resources :family_members, only: [:new, :create]
   end
 
@@ -51,12 +51,15 @@ Rails.application.routes.draw do
   # Notifications
   resources :notifications, only: [:index]
 
- # autres routes
-
- resources :invitations, only: [:create]
-
+  # Invitations
+  resources :invitations, only: [:create]
 
 
+  # other routes
+
+ get 'calendar', to: 'calendar#index'
+ get 'calendar/:date', to: 'calendar#index', as: 'calendar_date'
+ get 'calendar/:year/:month/:day', to: 'calendar#show_day', as: 'calendar_day'
 
 
 end
