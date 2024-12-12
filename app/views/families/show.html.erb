@@ -4,3 +4,10 @@
     <%= member.user.first_name %> <%= member.user.last_name %>
   </div>
 <% end %>
+
+<p>Children :</p>
+<% @family.children.each do |child| %>
+  <div>
+      <%= link_to child.first_name + ' ' + child.last_name, child_path(child) %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<div class="container-md pt-3">
+<h1>Children expenses</h1>
+  <div class="col-12 my-3">
+    <% @expenses.each do |expense| %>
+      <div class ="card" >
+        <%= expense.date %>
+        <%= expense.description %>
+        <%= expense.amount %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Add an expense', new_child_expense_path, class: 'btn btn-primary' %>
