@@ -1,42 +1,26 @@
 class ChildrenController < ApplicationController
-  before_action :set_child, only: [:show, :edit, :update, :destroy]
-  before_action :set_family, only: [:new, :create]
+  before_action :authenticate_user!
 
   def show
-    @child
+    
+  end
+  def new
+    @family = current_user.family
+    @child = @family.children.new
   end
 
-  def new
-    @family = Family.find(params[:family_id])
-    @child = @family.children.build
-  end
 
   def create
-    @child = @family.children.build(child_params)
-
-    if @child.save
-      redirect_to family_path(@family), notice: 'Child was successfully created.'
+    if current_user.family&.family_members&.exists?(user_id: current_user.id, creator: true)
+      @child = current_user.family.children.new(child_params)
+      if @child.save
+        redirect_to dashboard_path, notice: "Child successfully added."
+      else
+        render :new, alert: "Error adding child."
+      end
     else
-      render :new, status: :unprocessable_entity
+      redirect_to dashboard_path, alert: "You are not authorized to add a child to this family."
     end
-  end
-
-  def edit
-    @child
-  end
-
-  def update
-    if @child.update(child_params)
-      redirect_to child_path(@child), notice: 'Child was successfully updated.'
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    family = @child.family
-    @child.destroy
-    redirect_to family_path(family), notice: 'Child was successfully deleted.'
   end
 
   private
@@ -45,11 +29,4 @@ class ChildrenController < ApplicationController
     params.require(:child).permit(:first_name, :last_name, :birth_date)
   end
 
-  def set_child
-    @child = Child.find(params[:id])
-  end
-
-  def set_family
-    @family = Family.find(params[:family_id])
-  end
 end
