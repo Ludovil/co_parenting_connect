@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
-  
-  patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
-  patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
-  
+
   # get 'expenses/new'
 
   patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
   patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
 
   get 'dashboard/show'
-  
+
 
   devise_for :users
   root to: "pages#home"
@@ -54,9 +51,5 @@ Rails.application.routes.draw do
  # autres routes
 
  resources :invitations, only: [:create]
-
-
-
-
 
 end

@@ -12,3 +12,4 @@
 </div>
 
 <%= link_to 'Add an expense', new_child_expense_path, class: 'btn btn-primary' %>
+<%= link_to 'Delete', child_path(@child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
