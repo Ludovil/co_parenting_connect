@@ -1,9 +1,14 @@
 <h1>New Child</h1>
 
+
 <%= simple_form_for [@family, @child] do |form| %>
   <%= form.input :first_name, label: "First Name" %>
   <%= form.input :last_name, label: "Last Name" %>
   <%= form.input :birth_date, as: :date, label: "Birth Date"%>
 
-  <%= form.button :submit, "Create Child" %>
-<% end %>
+<%= simple_form_for([@family, @child]) do |f| %>
+  <div class="form-group">
+    <%= f.input :first_name, label: "First Name", input_html: { class: "form-control" } %>
+  </div>
+
+

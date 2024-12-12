@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
-  get 'expenses/new'
+  
+  patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
+  patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
+  
+  # get 'expenses/new'
+
+  patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
+  patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
+
+  get 'dashboard/show'
+  
+
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -10,6 +21,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # dashboard
+  resource :dashboard, only: [:show]
+
 
   # Families
   resources :families, only: [:create, :new, :show, :edit, :update] do
@@ -36,9 +51,12 @@ Rails.application.routes.draw do
   # Notifications
   resources :notifications, only: [:index]
 
+ # autres routes
 
-  # Custom Routes
-  get 'dashboard', to: 'users#dashboard'
+ resources :invitations, only: [:create]
+
+
+
 
 
 end
