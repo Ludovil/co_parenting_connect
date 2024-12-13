@@ -1,6 +1,12 @@
 <div class="container-md pt-3">
   <h1>Expenses for <%= @child.first_name %></h1>
   <h2>Total expenses : <%= @child.expenses.sum(:amount) %> €</h2>
+  <h3><% @expenses.group_by(&:user).each do |user, expenses| %>
+    <% if expense.user %>
+      <p><strong><%= user.first_name %> </strong>: <%= expenses.sum(&:amount) %> €</p>
+     <% else %>
+      <p><strong><%= "You are even." %> </strong>%> €</p>
+    <% end %> </h3>
   <%= link_to 'Add an expense', new_child_expense_path, class: 'btn btn-primary' %>
   <%= link_to 'Pay', pay_child_expenses_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger"%>
 
