@@ -18,18 +18,7 @@ class DashboardsController < ApplicationController
     end
     @children = current_user.family ? current_user.family.children : []
 
-    @selected_days = []
-    @children.each do|child|
-      @guards = child.guards
-      raise
-    end
 
-    @guards = @child.guards
-
-    @guards.each do |guard|
-      @selected_days << guard.attributes.select { |key, value| value == true }.keys
-    end
-    @selected_days_upcased = @selected_days.flatten.map(&:capitalize)
 
   end
 end
