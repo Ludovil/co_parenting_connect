@@ -1,6 +1,43 @@
 <h1>Upload Document</h1>
 
-<%= simple_form_for @document, url: documents_path, method: :post, html: { multipart: true } do |form| %>
-  <%= form.input :files, as: :file, label: "Upload Document(s)", input_html: { multiple: true } %>
-  <%= form.button :submit, "Upload", class: "btn btn-primary" %>
-<% end %>
+<div id="dropzone" class="dropzone">
+  <p>Drag and drop files here, or click to upload.</p>
+</div>
+
+<button id="submit-button" type="button" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+
+<script type="module">
+  import Dropzone from "dropzone";
+
+  // Configure Dropzone
+  Dropzone.autoDiscover = false;
+  const dropzone = new Dropzone("#dropzone", {
+    url: "<%= documents_path %>", // The endpoint where the files should be uploaded
+    paramName: "document[files][]", // The field name expected by the controller
+    maxFilesize: 10, // Maximum file size in MB
+    addRemoveLinks: true,
+    acceptedFiles: ".pdf,.doc,.docx,.txt,.jpg,.png", // Accepted file types
+    headers: {
+      "X-CSRF-Token": "<%= form_authenticity_token %>"
+    },
+    autoProcessQueue: false, // Disable auto-upload
+  });
+
+  // Handle manual upload on button click
+  const submitButton = document.getElementById("submit-button");
+  submitButton.addEventListener("click", () => {
+    if (dropzone.getQueuedFiles().length > 0) {
+      dropzone.processQueue(); // Start uploading files
+    } else {
+      console.log("No files to upload.");
+    }
+  });
+
+  dropzone.on("success", (file, response) => {
+    console.log("Successfully uploaded:", file);
+  });
+
+  dropzone.on("error", (file, errorMessage) => {
+    console.error("Upload error:", errorMessage);
+  });
+</script>

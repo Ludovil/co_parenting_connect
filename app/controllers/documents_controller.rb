@@ -3,17 +3,25 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :destroy, :delete_file]
 
   def new
-    @document = current_user.documents.new
+    @document = Document.new
   end
 
   def create
-    @document = current_user.documents.new(document_params)
+    Rails.logger.debug params.inspect
+    @document = Document.new # Missing initialization
+    @document.user = current_user
+
+    if params[:document][:files]
+      @document.files.attach(params[:document][:files])
+    end
+
     if @document.save
-      redirect_to documents_path, notice: 'Document uploaded successfully.'
+      render json: { message: "Files uploaded successfully" }, status: :ok
     else
-      render :new, alert: 'Failed to upload document.'
+      render json: { error: "Failed to upload files" }, status: :unprocessable_entity
     end
   end
+
 
   def index
     @documents = current_user.documents
@@ -32,12 +40,12 @@ class DocumentsController < ApplicationController
   end
 
   def delete_file
-    file = @document.files.find_by(file_id: params[:file_id])
+    file = @document.files.find(params[:file_id]) # Locate the attached file
     if file
-      file.purge # Delete the file
-      redirect_to document_path(@document), notice: "File deleted successfully."
+      file.purge # Delete the file from storage
+      render json: { message: "File deleted successfully" }, status: :ok
     else
-      redirect_to document_path(@document), alert: "File not found."
+      render json: { error: "File not found" }, status: :not_found
     end
   end
 
