@@ -9,6 +9,11 @@ class ExpensesController < ApplicationController
     @expense = @child.expenses.new
   end
 
+  def show
+    @expense = Expense.find(params[:id])
+    @child = @expense.child
+  end
+
   def create
     @child = Child.find(params[:child_id])
     @expense = @child.expenses.new(expense_params)

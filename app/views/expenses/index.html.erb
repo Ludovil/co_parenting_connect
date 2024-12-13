@@ -7,29 +7,30 @@
   <%= link_to 'Add an expense', new_child_expense_path, class: 'btn btn-primary' %>
   <%= link_to 'Pay', pay_child_expenses_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger"%>
 
-<%# list of expenses %>
- <% @expenses.each do |expense| %>
+
+<%# Expenses cards%>
+  <% @expenses.each do |expense| %>
     <div class="card d-flex flex-row align-items-center my-3">
+      <%= link_to '', expense_path(expense), class: 'card-link' %>
       <div class="card-body flex-grow-1">
         <div class="d-flex justify-content-between align-items-center">
           <div class="expense-date">
             <p class="mb-1"><strong>Date:</strong> <%= expense.date %></p>
           </div>
+
           <div class="expense-description">
             <p class="mb-1"><strong>Description:</strong> <%= expense.description %></p>
             <p class="mb-1"><strong>Payer:</strong> <%= expense.user.first_name %></p>
           </div>
+
           <div class="expense-amount">
             <p class="mb-0"><strong>Amount:</strong> <%= number_to_currency(expense.amount, unit: "€", format: "%n %u") %></p>
           </div>
-          <div class="expense-actions">
-            <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-sm btn-primary me-2" %>
-            <%= link_to "Delete", expense_path(expense),
-                data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
-                class: "btn btn-sm btn-danger" %>
-          </div>
+
+
         </div>
       </div>
     </div>
+
   <% end %>
 </div>

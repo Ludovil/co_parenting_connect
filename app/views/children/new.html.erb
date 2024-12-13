@@ -3,6 +3,6 @@
 <%= simple_form_for [@family, @child] do |form| %>
   <%= form.input :first_name, label: "First Name", input_html: { class: "form-control" } %>
   <%= form.input :last_name, label: "Last Name", input_html: { class: "form-control" } %>
-  <%= form.input :birth_date, as: :date, label: "Birth Date", input_html: { class: "form-control" } %>
+  <%= form.input :birth_date, as: :date, label: "Birth Date", :end_year => 2024, input_html: { class: "form-control" } %>
   <%= form.submit "Create Child", class: "btn btn-primary" %>
 <% end %>

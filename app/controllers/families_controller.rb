@@ -11,7 +11,7 @@ class FamiliesController < ApplicationController
         family: @family,
         creator: true
       )
-      redirect_to @family, notice: 'Family was successfully created.'
+      redirect_to dashboard_path, notice: 'Family was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
