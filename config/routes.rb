@@ -66,4 +66,11 @@ Rails.application.routes.draw do
  get 'calendar/:year/:month/:day', to: 'calendar#show_day', as: 'calendar_day'
 
 
+
+ # Documents
+  resources :documents, only: [:index, :new, :create, :destroy, :show] do
+    member do
+      delete :delete_file
+    end
+  end
 end

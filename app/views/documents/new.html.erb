@@ -1,0 +1,6 @@
+<h1>Upload Document</h1>
+
+<%= simple_form_for @document, url: documents_path, method: :post, html: { multipart: true } do |form| %>
+  <%= form.input :files, as: :file, label: "Upload Document(s)", input_html: { multiple: true } %>
+  <%= form.button :submit, "Upload", class: "btn btn-primary" %>
+<% end %>
