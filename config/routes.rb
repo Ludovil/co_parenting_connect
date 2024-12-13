@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
   patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
 
+
   # get 'expenses/new'
 
   get 'dashboard/show'
@@ -56,7 +57,11 @@ Rails.application.routes.draw do
   resources :notifications, only: [:index]
 
   # Invitations
-  resources :invitations, only: [:create]
+  resources :invitations, only: [:create] do
+    member do
+      delete :cancel
+    end
+  end
 
 
   # other routes
