@@ -36,7 +36,11 @@ Rails.application.routes.draw do
   resources :children, only: [:show, :edit, :update, :destroy] do
     resources :events, only: [:new, :create, :index]
     resources :guards, only: [:new, :create, :index]
-    resources :expenses, only: [:new, :create, :index]
+    resources :expenses, only: [:new, :create, :index] do
+      collection do
+        delete :pay
+      end
+    end
   end
 
   # Events

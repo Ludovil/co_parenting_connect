@@ -1,15 +1,12 @@
-<h1>Dashboard#show</h1>
-<p>Find me in app/views/dashboard/show.html.erb</p>
-
 <h1>Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
 
 <h2>Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
 
 <% if current_user.family %>
-<h3>members :</h3>
+<h3>Members :</h3>
 
 <%@members.each do |member|%>
-<div><%=member%></div>
+<p><%=member%></p>
 <%end%>
 
 <h3>Children:</h3>
@@ -37,12 +34,12 @@
   <p>No children added yet.</p>
 <% end %>
 
-<%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-secondary" %>
+<p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-secondary" %></p>
 
 
 <h3>Send an invitation</h3>
 
-<%= render 'invitations/form'%>
+<p><%= render 'invitations/form'%></p>
 <%end%>
 
 

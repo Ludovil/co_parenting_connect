@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_12_105329) do
+
+ActiveRecord::Schema[7.1].define(version: 2024_12_12_225835) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,7 +45,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_105329) do
     t.string "description"
     t.date "date"
     t.decimal "amount", precision: 10, scale: 2
+    t.bigint "user_id"
     t.index ["child_id"], name: "index_expenses_on_child_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "families", force: :cascade do |t|
@@ -123,6 +126,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_105329) do
   add_foreign_key "events", "children"
   add_foreign_key "events", "users"
   add_foreign_key "expenses", "children"
+  add_foreign_key "expenses", "users"
   add_foreign_key "family_members", "families"
   add_foreign_key "family_members", "users"
   add_foreign_key "guards", "children"
