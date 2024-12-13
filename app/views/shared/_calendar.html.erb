@@ -1,0 +1,18 @@
+<div id="calendar-header">
+  <%= link_to ':arrow_left:', calendar_path(date: @previous_month) %>
+  <h2><%= @date.strftime("%B %Y") %></h2> <!-- Display the current month and year -->
+  <%= link_to ':arrow_right:', calendar_path(date: @next_month) %>
+</div>
+<div id="weekdays">
+    <% ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].each do |day_name| %>
+      <div class="weekday-name"><%= day_name %></div>
+    <% end %>
+  </div>
+<div id="calendar-grid">
+  <% (1..@date.end_of_month.day).each do |day| %>
+    <div class="calendar-day">
+      <%= link_to day, calendar_day_path(day: day, month: @date.month, year: @date.year) %>
+
+    </div>
+  <% end %>
+</div>

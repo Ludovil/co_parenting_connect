@@ -1,0 +1,22 @@
+<h1>List all the guards</h1>
+
+<%@children.each do |child|%>
+<div><%=@child.first_name%></div>
+<%end%>
+
+<!-- Get the selected days -->
+
+<%@selected_days_upcased.each do |day|%>
+<div><%=day%></div>
+<%end%>
+
+
+
+  <%= month_calendar do |date| %>
+  <% day_name = date.strftime("%A") %>
+  <div data-controller="highlight"
+       data-highlight-selected-days-value="<%= @selected_days_upcased.to_json %>">
+    <div class="guard-day"><%= day_name %></div>
+  </div>
+  <%= date %>
+<% end %>

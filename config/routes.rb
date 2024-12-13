@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
-  # get 'expenses/new'
-
   patch 'invitations/:id/accept', to: 'invitations#accept', as: 'accept_invitation'
   patch 'invitations/:id/reject', to: 'invitations#reject', as: 'reject_invitation'
+
+  # get 'expenses/new'
 
   get 'dashboard/show'
 
@@ -25,7 +25,10 @@ Rails.application.routes.draw do
 
   # Families
   resources :families, only: [:create, :new, :show, :edit, :update] do
-    resources :children, only: [:new, :create]
+    resources :children, only: [:new, :create] do
+
+    end
+
     resources :family_members, only: [:new, :create]
   end
 
@@ -33,7 +36,11 @@ Rails.application.routes.draw do
   resources :children, only: [:show, :edit, :update, :destroy] do
     resources :events, only: [:new, :create, :index]
     resources :guards, only: [:new, :create, :index]
-    resources :expenses, only: [:new, :create, :index]
+    resources :expenses, only: [:new, :create, :index] do
+      collection do
+        delete :pay
+      end
+    end
   end
 
   # Events
@@ -48,9 +55,17 @@ Rails.application.routes.draw do
   # Notifications
   resources :notifications, only: [:index]
 
- # autres routes
-
+  # Invitations
   resources :invitations, only: [:create]
+
+
+  # other routes
+
+ get 'calendar', to: 'calendar#index'
+ get 'calendar/:date', to: 'calendar#index', as: 'calendar_date'
+ get 'calendar/:year/:month/:day', to: 'calendar#show_day', as: 'calendar_day'
+
+
 
  # Documents
   resources :documents, only: [:index, :new, :create, :destroy, :show] do
