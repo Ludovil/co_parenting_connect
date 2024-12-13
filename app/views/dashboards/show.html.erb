@@ -25,7 +25,7 @@
 
           <%= link_to "Guard", new_child_guard_path(child), class: "btn btn-sm btn-info" %>
           <%= link_to "Event", new_child_event_path(child), class: "btn btn-sm btn-warning" %>
-          <%= link_to "Expenses", new_child_expense_path(child), class: "btn btn-sm btn-success" %>
+          <%= link_to "Expenses", child_expenses_path(child), class: "btn btn-sm btn-success" %>
       </li>
 
     <% end %>
@@ -52,8 +52,7 @@
     <p>Status: <%= invitation.status %></p>
 
     <% if invitation.status == 'pending' %>
-      <%= link_to 'Accept', accept_invitation_path(invitation), method: :patch %>
-      <%= link_to 'cancel', reject_invitation_path(invitation), method: :patch %>
+      <%= button_to 'cancel', cancel_invitation_path(invitation), method: :delete %>
     <% end %>
   </div>
 <% end %>
