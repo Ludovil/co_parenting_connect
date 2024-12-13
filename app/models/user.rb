@@ -10,5 +10,5 @@ class User < ApplicationRecord
   has_many :guards
   has_many :messages
   has_many :invitations
-
+  has_many :documents, dependent: :destroy
 end

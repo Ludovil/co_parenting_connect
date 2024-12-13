@@ -1,0 +1,18 @@
+<h1>Your Uploaded Documents</h1>
+
+<% if @documents.present? && @documents.any? %>
+  <ul>
+    <% @documents.each do |document| %>
+      <% if document.files.attached? %>
+        <% document.files.each do |file| %>
+          <li>
+            <%= link_to file.filename.to_s, url_for(file), target: "_blank" %>
+            <%= link_to "Delete", document_path(document), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You haven't uploaded any documents yet.</p>
+<% end %>

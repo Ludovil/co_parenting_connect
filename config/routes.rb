@@ -50,6 +50,12 @@ Rails.application.routes.draw do
 
  # autres routes
 
- resources :invitations, only: [:create]
+  resources :invitations, only: [:create]
 
+ # Documents
+  resources :documents, only: [:index, :new, :create, :destroy, :show] do
+    member do
+      delete :delete_file
+    end
+  end
 end
