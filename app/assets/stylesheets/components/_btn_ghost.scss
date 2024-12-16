@@ -1,11 +1,21 @@
 .btn-ghost {
   color: $light-black;
   border: 1px solid $light-black;
-  padding: 8px 24px;
-  border-radius: 50px;
-  font-weight: lighter;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  border-radius: 10px;
   opacity: 0.6;
   transition: opacity 0.3s ease;
+  flex-grow: 0;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  width:125px;
+  text-align: center;
+
 }
 
 .btn-ghost:hover {
