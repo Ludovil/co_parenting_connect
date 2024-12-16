@@ -8,7 +8,7 @@ class DocumentsController < ApplicationController
 
   def create
     Rails.logger.debug params.inspect
-    @document = Document.new # Missing initialization
+    @document = Document.new
     @document.user = current_user
 
     if params[:document][:files]
@@ -22,8 +22,7 @@ class DocumentsController < ApplicationController
     end
   end
 
-
-  def index
+def index
     @documents = current_user.documents
   end
 
@@ -40,9 +39,9 @@ class DocumentsController < ApplicationController
   end
 
   def delete_file
-    file = @document.files.find(params[:file_id]) # Locate the attached file
+    file = @document.files.find(params[:file_id])
     if file
-      file.purge # Delete the file from storage
+      file.purge
       render json: { message: "File deleted successfully" }, status: :ok
     else
       render json: { error: "File not found" }, status: :not_found

@@ -18,7 +18,7 @@
           <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
           <%= link_to "Edit", edit_child_path(child), class: "btn btn-sm btn-primary" %>
           <%= link_to "Delete", child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
-          <%= link_to "Go to Documents", documents_path, class: "btn btn-sm btn-info" %>
+          <%= link_to "Documents", documents_path, class: "btn btn-sm btn-info" %>
           <%= link_to "Guard", new_child_guard_path(child), class: "btn btn-sm btn-warning" %>
           <%= link_to "Event", new_child_event_path(child), class: "btn btn-sm btn-secondary" %>
           <%= link_to "Expenses", new_child_expense_path(child), class: "btn btn-sm btn-success" %>

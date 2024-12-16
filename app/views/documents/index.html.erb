@@ -9,13 +9,12 @@
         <% document.files.each do |file| %>
           <li>
             <%= link_to file.filename.to_s, url_for(file), target: "_blank" %>
-            <%= link_to "Delete", document_path(document), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-            <%= link_to "Add Document", new_document_path, class: "btn btn-primary", style: "margin-top: 10px;" %>
+            <%= link_to "Delete", document_path(document), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
           </li>
         <% end %>
       <% end %>
     <% end %>
   </ul>
 <% else %>
-  <p>You haven't uploaded any documents yet.</p>
+  <p style="color: grey; margin-top: 20px;">This folder is empty. Add a document to the folder.</p>
 <% end %>

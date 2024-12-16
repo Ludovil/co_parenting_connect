@@ -33,8 +33,9 @@
     }
   });
 
-  dropzone.on("success", (file, response) => {
-    console.log("Successfully uploaded:", file);
+  dropzone.on("queuecomplete", () => {
+    console.log("All files uploaded successfully.");
+    window.location.href = "<%= documents_path %>";
   });
 
   dropzone.on("error", (file, errorMessage) => {
