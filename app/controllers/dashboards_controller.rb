@@ -18,5 +18,7 @@ class DashboardsController < ApplicationController
     end
     @children = current_user.family ? current_user.family.children : []
 
+
+
   end
 end

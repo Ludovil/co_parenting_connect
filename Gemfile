@@ -78,3 +78,5 @@ end
 gem "devise"
 gem "faker"
 gem "cloudinary"
+gem "simple_calendar"
+
