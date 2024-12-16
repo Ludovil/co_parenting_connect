@@ -9,9 +9,10 @@ class FamiliesController < ApplicationController
       @family.family_members.create(
         user_id: current_user.id,
         family: @family,
-        creator: true
+        creator: true,
+        is_parent: true
       )
-      redirect_to @family, notice: 'Family was successfully created.'
+      redirect_to dashboard_path, notice: 'Family was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
