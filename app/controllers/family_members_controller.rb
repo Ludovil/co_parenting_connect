@@ -36,6 +36,6 @@ class FamilyMembersController < ApplicationController
   private
 
   def family_member_params
-    params.require(:family_member).permit(:user_id, :family_id, :creator)
+    params.require(:family_member).permit(:user_id, :family_id, :creator, :is_parent)
   end
 end

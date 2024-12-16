@@ -17,6 +17,7 @@ class GuardsController < ApplicationController
   end
 
   def create
+    @child.guards.destroy_all
     @guard = @child.guards.new(guard_params)
     if @guard.save
       redirect_to child_guards_path(@child), notice: 'Guard was successfully created.'

@@ -13,7 +13,23 @@
 @import "components/index";
 @import "pages/index";
 
+
 body {
-  margin: 10px 50px;
   background-color: white;
+}
+
+.container{
+  margin: 0px 30px;
+}
+
+.word-highlight {
+  color: $green;
+}
+
+.col-3 {
+  border-right: 1px solid #ccc;
+}
+
+.main-title {
+  font-size: 70px;
 }
