@@ -1,4 +1,6 @@
-<h1>Your Uploaded Documents</h1>
+<h1>Documents</h1>
+
+<%= link_to "Add Document", new_document_path, class: "btn btn-primary", style: "margin-top: 10px;" %>
 
 <% if @documents.present? && @documents.any? %>
   <ul>
@@ -8,6 +10,7 @@
           <li>
             <%= link_to file.filename.to_s, url_for(file), target: "_blank" %>
             <%= link_to "Delete", document_path(document), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+            <%= link_to "Add Document", new_document_path, class: "btn btn-primary", style: "margin-top: 10px;" %>
           </li>
         <% end %>
       <% end %>
