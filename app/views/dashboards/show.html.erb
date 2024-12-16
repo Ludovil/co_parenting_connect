@@ -73,3 +73,9 @@
     <% end %>
   </div>
 <% end %>
+
+<!-- Calendar container with Stimulus controller -->
+<div id="calendar-container" data-controller="calendar" data-action="click->calendar#redirectToCalendar">
+  <%= render 'shared/calendar' %>
+</div>
+

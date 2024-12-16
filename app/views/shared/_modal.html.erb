@@ -1,0 +1,31 @@
+<!-- Modal Form for Adding Event -->
+<div id="eventModal" class="modal" style="display:none;" data-editor-target="modal">
+  <div class="modal-content">
+    <h2>Create Event</h2>
+    <%= form_with(model: @event, id: 'event_form', local: true, data: { editor_target: 'eventForm', action: 'submit->editor#addEvent' }) do |form| %>
+      <%= form.label :title, "Event Title" %>
+      <%= form.text_field :title, id: 'event_title', data: { editor_target: 'eventTitle' } %>
+
+      <%= form.label :start_date, "Start Time" %>
+      <%= form.datetime_local_field :start_date, id: 'event_start_date', data: { editor_target: 'eventStartDate' } %>
+
+      <%= form.label :end_date, "End Time" %>
+      <%= form.datetime_local_field :end_date, id: 'event_end_date', data: { editor_target: 'eventEndDate' } %>
+
+      <%= form.label :notes, "Event Notes" %>
+      <%= form.text_area :notes, id: 'event_notes', data: { editor_target: 'eventNotes' } %>
+
+      <%= form.label :user_ids, "Assign Family Members" %>
+      <%= form.collection_select :user_ids, @family_members, :id, :full_name, { prompt: "Select family members" }, { multiple: true, id: 'event_user_ids', data: { editor_target: 'eventUserIds' } } %>
+
+      <%= form.label :child_ids, "Assign child/children" %>
+      <%= form.collection_select :child_ids, @children, :id, :full_name,
+      { prompt: "Select one or more children" },
+      { multiple: true, id: 'event_child_ids', data: { editor_target: 'eventChildIds' } } %>
+
+
+      <button type="submit">Create Event</button> <!-- Removed extra data-action for button -->
+      <button type="button" data-action="click->editor#closeEventModal">Back</button>
+    <% end %>
+  </div>
+</div>

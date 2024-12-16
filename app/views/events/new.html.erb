@@ -1,2 +1,22 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<div id="eventModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <%= form_with(model: @event, id: 'event_form', local: true) do |form| %>
+      <%= form.label :title, "Event Title" %>
+      <%= form.text_field :title, id: 'event_title' %>
+
+      <%= form.label :start_date, "Start Time" %>
+      <%= form.datetime_local_field :start_date, id: 'event_start_date' %>
+
+      <%= form.label :end_date, "End Time" %>
+      <%= form.datetime_local_field :end_date, id: 'event_end_date' %>
+
+      <%= form.label :notes, "Event Notes" %>
+      <%= form.text_area :notes, id: 'event_notes' %>
+
+      <%= form.label :user_ids, "Assign Family Members" %>
+      <%= form.collection_select :user_ids, @family_members, :id, :full_name, { prompt: "Select family members" }, { multiple: true, id: 'event_user_ids' } %>
+
+      <button type="button" data-action="click->editor#addEvent">Create Event</button>
+    <% end %>
+  </div>
+</div>

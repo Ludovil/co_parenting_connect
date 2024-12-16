@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_one :family_member
   has_one :family, through: :family_member
-  has_many :events
+  has_and_belongs_to_many :events
   has_many :guards
   has_many :messages
   has_many :invitations
