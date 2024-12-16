@@ -1,6 +1,10 @@
 <%= simple_form_for(@invitation, url: invitations_path) do |f| %>
   <div class="form-group">
-    <%= f.input :recipient_email, label: "Send an invitation to the following email address :" %>
+    <%= f.input :recipient_email, label: "Send an invitation to the following email address:" %>
+  </div>
+
+  <div class="form-group">
+     <%= f.input :is_parent, as: :boolean, label: "Is this user a parent?", input_html: { class: "form-check-input" } %>
   </div>
 
   <%= f.submit "Send", class: "btn btn-flat" %>

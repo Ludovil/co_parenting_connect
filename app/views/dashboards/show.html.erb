@@ -5,12 +5,18 @@
 <div class="container">
   <div class="row">
     <div class="col-3">
+
       <% if current_user.family %>
       <h3>Members :</h3>
       <%@members.each do |member|%>
-      <p><%=member%></p>
+      <p><%=member%></P>
       <%end%>
+      <%current_user.family.family_members.each do |member|%>
+        <p><%=member.is_parent%></P>
+      <%end%>
+ <p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
       <h3>Children:</h3>
+
       <% if @children.any? %>
         <ul>
           <% @children.each do |child| %>
@@ -27,7 +33,7 @@
       <% else %>
         <p>No children added yet.</p>
       <% end %>
-      <p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
+
       <h3>Send an invitation</h3>
       <p><%= render 'invitations/form'%></p>
       <%end%>
