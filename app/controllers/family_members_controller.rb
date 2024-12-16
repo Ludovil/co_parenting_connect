@@ -1,7 +1,14 @@
 class FamilyMembersController < ApplicationController
 
+  def index
+    @family_members = FamilyMember.all
+    render json: { family_members: @family_members }
+    end
+  end
+
   def new
-    @family_member = FamilyMember.new
+    @event = Event.new
+    @family_members = FamilyMember.all
   end
 
   def create

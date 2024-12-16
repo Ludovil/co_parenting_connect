@@ -56,9 +56,17 @@
       <% end %>
     </div>
     <div class="col-9">
-    <%= month_calendar do |date| %>
-    <%= date %>
-    <% end %>
+   
     </div>
   </div>
+
+<% end %>
+
+<!-- Calendar container with Stimulus controller -->
+<div id="calendar-container" data-controller="calendar" data-action="click->calendar#redirectToCalendar">
+  <%= render 'shared/calendar' %>
 </div>
+
+
+</div>
+
