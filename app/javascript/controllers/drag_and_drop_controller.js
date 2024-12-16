@@ -8,35 +8,30 @@ export default class extends Controller {
     const dropzoneElement = document.querySelector("#dropzone");
 
     const dropzone = new Dropzone(dropzoneElement, {
-      url: "/documents", // Route for file uploads
-      paramName: "document[files][]", // Rails expects files in this format
-      maxFilesize: 5, // Maximum file size in MB
-      acceptedFiles: ".pdf,.doc,.docx,.jpg,.png", // Allowed file types
+      url: "/documents",
+      paramName: "document[files][]",
+      maxFilesize: 5,
+      acceptedFiles: ".pdf,.doc,.docx,.jpg,.png",
       addRemoveLinks: true,
       dictDefaultMessage: "Drag files here to upload",
-      dictRemoveFile: "Delete", // Text for the remove link
+      dictRemoveFile: "Delete",
     });
 
-    // Handle successful upload
     dropzone.on("success", (file, response) => {
-      // Assuming the server response contains the file's ID
       file.serverId = response.id;
       console.log("File uploaded successfully:", response);
     });
 
-    // Handle errors during upload
     dropzone.on("error", (file, error) => {
       console.error("Error uploading file:", error);
     });
 
-    // Handle file removal
     dropzone.on("removedfile", (file) => {
       if (file.serverId) {
-        // Send DELETE request to the server
         fetch(`/documents/${file.serverId}`, {
           method: "DELETE",
           headers: {
-            "X-CSRF-Token": document.querySelector("[name='csrf-token']").content, // CSRF token for Rails
+            "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
             "Content-Type": "application/json",
           },
         })

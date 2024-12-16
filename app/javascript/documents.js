@@ -1,6 +1,3 @@
-import Dropzone from "dropzone";
-
-Dropzone.autoDiscover = false;
 const dropzone = new Dropzone("#dropzone", {
   url: "/documents",
   paramName: "document[files]",
