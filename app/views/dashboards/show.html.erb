@@ -38,16 +38,10 @@
       <p><%= render 'invitations/form'%></p>
       <%end%>
       <h3>Invitations</h3>
-      <% @invitations.each do |invitation| %>
-        <div>
-          <p>Invitations sent from: <%= invitation.family.name %></p>
-          <p>to <%=invitation.recipient.email%></p>
-          <p>Status: <%= invitation.status %></p>
-          <% if invitation.status == 'pending' %>
-            <%= button_to 'cancel', cancel_invitation_path(invitation), method: :delete %>
-          <% end %>
-        </div>
-      <% end %>
+
+
+
+
       <% @invits.each do |invitation| %>
         <div>
           <p>Invitations received from: <%= invitation.family.name %></p>
