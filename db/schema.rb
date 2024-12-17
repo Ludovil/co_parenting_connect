@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_12_225835) do
+
+ActiveRecord::Schema[7.1].define(version: 2024_12_13_140801) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,12 +54,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_225835) do
     t.index ["family_id"], name: "index_children_on_family_id"
   end
 
+
   create_table "documents", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_documents_on_user_id"
+
   end
 
   create_table "events", force: :cascade do |t|
@@ -69,6 +73,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_225835) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.index ["child_id"], name: "index_events_on_child_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -97,6 +104,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_225835) do
     t.boolean "creator"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_parent"
     t.index ["family_id"], name: "index_family_members_on_family_id"
     t.index ["user_id"], name: "index_family_members_on_user_id"
   end
@@ -124,6 +132,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_225835) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recipient_id"
+    t.boolean "is_parent"
     t.index ["family_id"], name: "index_invitations_on_family_id"
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end

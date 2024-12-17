@@ -1,9 +1,11 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_child, only: [:new, :create, :index]
 
   def index
-    @events = @child.events
+    @events = Event.all
+    render json: @events
   end
 
   def show
@@ -11,19 +13,32 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = @child.events.build
+    @event = Event.new
+    @family_members = current_user.family.family_members
+    @children = current_user.family.children
   end
 
   def create
-    @event = @child.events.build(event_params)
-    @event.user_id = current_user.id
+  @event = Event.new()
+  @event.title = params["event[title]"]
+  p "......."
+  p params["event['title']"]
+  @event.child = @child
+  @event.user = current_user
+  @event.receiver = User.find(params["event[user_ids][]"])
+  @event.start_date = params["event[start_date]"]
+  @event.end_date = params["event[end_date]"]
+  @event.notes = params["event[notes]"]
+  @event.status = params["event[status]"]
+  @event.date = params["event[date]"]
 
     if @event.save
-      redirect_to child_events_path(@child), notice: 'Event was successfully created.'
+      render json: @event, status: :created
     else
-      render :new, status: :unprocessable_entity
+      render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
 
   def edit
     @event
@@ -49,10 +64,24 @@ class EventsController < ApplicationController
   end
 
   def set_child
-    @child = Child.find(params[:child_id])
+    if params[:child_id].present?
+      @child = Child.find(params[:child_id])
+
+    else
+      @child = Child.find(params["event[child_ids][]"])
+    end
   end
 
   def event_params
-    params.require(:event).permit(:notes, :status, :date, :user_receiver_id)
+    params.permit(
+      "event[title]",
+      "event[notes]",
+      "event[start_date]",
+      "event[end_date]",
+      "event[child_ids][]",
+      "event[user_ids][]",
+      "event[date]",
+      "event[status]"
+    )
   end
 end

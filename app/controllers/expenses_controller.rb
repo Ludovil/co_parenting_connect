@@ -33,6 +33,11 @@ class ExpensesController < ApplicationController
     @expense = Expense.find(params[:id])
   end
 
+  def show
+    @expenses = Expense.find(params[:id])
+    @child = @expenses.child
+  end
+
   def update
     @expense = Expense.find(params[:id])
     @child = @expense.child

@@ -1,2 +1,24 @@
-<h1>Co-parenting Connect</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<h1>Welcome to Co-parenting Connect</h1>
+<p>Manage your co-parenting appointments easily.</p>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+      <div class="col-5 justify-content-center">
+        <%= image_tag "family.png", class:"img-fluid" %>
+      </div>
+      <div class="col-7 my-auto">
+        <div class="align-items-center">
+          <h1 class="main-title">A shared space for a </br><span class="word-highlight">peaceful</span> co-parenting.</h1>
+          <p>Tired of juggling between different tools to manage expenses, schedules and communication ?
+          With Family Nest, collaborate easily and efficiently with your ex-partner thanks to our centralized hub gathering
+          all your co-parenting needs. Experience the simplicity and efficiency of co-parenting with Family Nest and prioritize
+          what truly matters: your children's well-being.</p>
+        </div>
+        <div class="pt-3">
+          <%= link_to "Get started", new_user_registration_path, class:"cta btn-flat text-left" %>
+        </div>
+    </div>
+  </div>
+

@@ -18,7 +18,9 @@ class DashboardsController < ApplicationController
     end
     @children = current_user.family ? current_user.family.children : []
 
-
+    @event = Event.new
+    @events = current_user.family.events
+    @family_members = FamilyMember.all
 
   end
 end
