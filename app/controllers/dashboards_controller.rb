@@ -17,10 +17,16 @@ class DashboardsController < ApplicationController
       end
     end
     @children = current_user.family ? current_user.family.children : []
+    @children.each do |child|
+      @guards = child.guards
+      @selected_days = []
+      @days_and_guards = []
+      @guards.each do |guard|
+        @selected_days << guard.attributes.select { |key, value| value == true }.keys
+        @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
+      end
+      # @selected_days_upcased = @selected_days.flatten.map(&:capitalize)
 
-    @event = Event.new
-    @events = current_user.family.events
-    @family_members = FamilyMember.all
 
   end
 end

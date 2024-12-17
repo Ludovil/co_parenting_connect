@@ -48,7 +48,17 @@
       <% end %>
     </div>
     <div class="col-9">
+
     <p><%=@days_and_guards %></p>
+
+
+      <% if @days_and_guards.present? %>
+        <p><%= @days_and_guards.first[:user] %></p>
+      <% else %>
+        <p>No guards available</p>
+      <% end %>
+
+
        <%= month_calendar do |date| %>
         <% day_name = date.strftime("%A") %>
         <div data-controller="highlight"
@@ -57,6 +67,7 @@
         </div>
         <%= date %>
       <% end %>
+
     </div>
   </div>
 </div>
