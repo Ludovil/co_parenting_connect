@@ -1,18 +1,18 @@
-<div id="calendar-header">
-  <%= link_to ':arrow_left:', calendar_path(date: @previous_month) %>
-  <h2><%= @date.strftime("%B %Y") %></h2> <!-- Display the current month and year -->
-  <%= link_to ':arrow_right:', calendar_path(date: @next_month) %>
-</div>
-<div id="weekdays">
-    <% ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].each do |day_name| %>
-      <div class="weekday-name"><%= day_name %></div>
-    <% end %>
+<div data-controller="editor" data-editor-events-value="<%= @events %>">
+  <!-- Calendar Control Buttons -->
+  <div class="calendar-controls">
+    <button data-action="click->editor#prev">Previous</button>
+    <button data-action="click->editor#today">Today</button>
+    <button data-action="click->editor#next">Next</button>
+    <select data-action="change->editor#changeView">
+      <option value="month">Month</option>
+      <option value="week">Week</option>
+      <option value="day">Day</option>
+    </select>
+    <button data-action="click->editor#openEventModal">Add Event</button>
   </div>
-<div id="calendar-grid">
-  <% (1..@date.end_of_month.day).each do |day| %>
-    <div class="calendar-day">
-      <%= link_to day, calendar_day_path(day: day, month: @date.month, year: @date.year) %>
 
-    </div>
-  <% end %>
+  <!-- Calendar Container -->
+  <div data-editor-target="calendar" id="calendar" style="height: 800px;"></div>
+  <%= render 'shared/modal' %>
 </div>
