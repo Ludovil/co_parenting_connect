@@ -7,14 +7,17 @@
     <div class="col-3">
 
       <% if current_user.family %>
-      <h3>Members :</h3>
-      <%@members.each do |member|%>
-      <p><%=member%></P>
-      <%end%>
+      <h3>Family Members :</h3>
       <%current_user.family.family_members.each do |member|%>
-        <p><%=member.is_parent%></P>
+      <p>
+        <%=member.user.first_name%>
+       <% if member.is_parent %>
+        (parent)
+        <% end %>
+      </P>
       <%end%>
- <p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
+
+      <p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
       <h3>Children:</h3>
 
       <% if @children.any? %>
@@ -22,11 +25,11 @@
           <% @children.each do |child| %>
             <li>
               <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
-                <%= link_to "Edit", edit_child_path(child), class: "btn btn-ghost no-border" %>
-                <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn btn-ghost no-border' %>
-                <%= link_to "Guard", new_child_guard_path(child), class: "btn btn-ghost no-border" %>
-                <%= link_to "Event", new_child_event_path(child), class: "btn btn-ghost no-border" %>
-                <%= link_to "Expenses", child_expenses_path(child), class: "btn btn-ghost no-border" %>
+                <%= link_to "Edit", edit_child_path(child), class: "btn no-border hover-effect" %>
+                <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn no-border hover-effect' %>
+                <%= link_to "Guard", new_child_guard_path(child), class: "btn no-border hover-effect" %>
+                <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
+                <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
             </li>
           <% end %>
         </ul>
@@ -55,8 +58,8 @@
         </div>
       <% end %>
     </div>
-    <div class="col-9">
 
+    <div class="col-9">
       <% if @days_and_guards.present? %>
         <p class="current-user-bg">Current User = <%=current_user.first_name%></p>
         <%other_user = @days_and_guards.find { |guard| guard[:user] != current_user.first_name }%>
@@ -68,7 +71,6 @@
       <% else %>
         <p>No guards available</p>
       <% end %>
-      <p><%=@days_and_guards%></p>
         <%= month_calendar do |date| %>
         <% day_name = date.strftime("%A") %>
         <div data-controller="highlight"
@@ -76,10 +78,9 @@
             data-highlight-user-value="<%= current_user.first_name %>">
           <div class="guard-day"><%= day_name %></div>
         </div>
-        <%= date %>
+
       <% end %>
 
     </div>
   </div>
 </div>
-

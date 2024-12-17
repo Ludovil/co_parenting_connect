@@ -8,7 +8,6 @@
 @import "font-awesome";
 @import "simple_calendar";
 
-
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
@@ -35,4 +34,13 @@ body {
 
 .second-user-bg {
   background-color: $calendar-second-user;
+}
+
+.hover-effect {
+  color: $light-black;
+  transition: color 0.3s ease;
+}
+
+.hover-effect:hover {
+  color: $primary;
 }
