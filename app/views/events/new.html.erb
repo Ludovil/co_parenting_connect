@@ -1,2 +1,49 @@
 <h1>Events#new</h1>
 <p>Find me in app/views/events/new.html.erb</p>
+<!-- Simple Event Form -->
+<div id="eventModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2>Create Event</h2>
+    <%= form_with(model: @event, method: :post, id: 'event_form', local: true) do |form| %>
+      <div>
+        <%= form.label :title, "Event Title" %>
+        <%= form.text_field :title, id: 'event_title' %>
+      </div>
+
+      <div>
+        <%= form.label :start_date, "Start Date & Time" %>
+        <%= form.datetime_local_field :start_date, id: 'event_start_date' %>
+      </div>
+
+      <div>
+        <%= form.label :end_date, "End Date & Time" %>
+        <%= form.datetime_local_field :end_date, id: 'event_end_date' %>
+      </div>
+
+      <div>
+        <%= form.label :notes, "Notes" %>
+        <%= form.text_area :notes, id: 'event_notes' %>
+      </div>
+
+      <div>
+        <%= form.label :child_id, "Assign to Child" %>
+        <%= form.collection_select :child_id, @children, :id, :full_name, prompt: "Select a child", id: 'event_child_id' %>
+      </div>
+
+      <div>
+        <%= form.label :user_id, "Assign to User" %>
+        <%= form.collection_select :user_id, @users, :id, :full_name, prompt: "Select a user", id: 'event_user_id' %>
+      </div>
+
+      <div>
+        <%= form.label :status, "Status" %>
+        <%= form.check_box :status, id: 'event_status' %> Completed
+      </div>
+
+      <div>
+        <%= form.submit "Create Event" %>
+        <button type="button" onclick="document.getElementById('eventModal').style.display='none'">Cancel</button>
+      </div>
+    <% end %>
+  </div>
+</div>

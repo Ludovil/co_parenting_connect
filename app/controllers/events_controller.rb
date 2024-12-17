@@ -2,6 +2,9 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_child, only: [:new, :create, :index]
 
+  @children = Child.all
+  @users = User.all
+
   def index
     @events = @child.events
   end
@@ -11,17 +14,17 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = @child.events.build
+    @event = Event.new
   end
 
   def create
-    @event = @child.events.build(event_params)
+    @event = Event.new(event_params)
     @event.user_id = current_user.id
 
     if @event.save
-      redirect_to child_events_path(@child), notice: 'Event was successfully created.'
+      redirect_to events_path, notice: "Event created successfully."
     else
-      render :new, status: :unprocessable_entity
+      render :new, :unprocessable_entity
     end
   end
 
