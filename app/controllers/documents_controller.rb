@@ -22,7 +22,7 @@ class DocumentsController < ApplicationController
     end
   end
 
-def index
+  def index
     @documents = current_user.documents
   end
 
@@ -42,7 +42,8 @@ def index
     file = @document.files.find(params[:file_id])
     if file
       file.purge
-      render json: { message: "File deleted successfully" }, status: :ok
+      redirect_to document_path(@document), status: :see_other
+      #render json: { message: "File deleted successfully" }, status: :ok
     else
       render json: { error: "File not found" }, status: :not_found
     end

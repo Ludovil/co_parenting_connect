@@ -2,7 +2,7 @@
 
 <%= link_to "Add Document", new_document_path, class: "btn btn-primary", style: "margin-top: 10px;" %>
 
-<% if @documents.present? && @documents.any? %>
+<% if @documents.any? { |document| document.files.attached? }%>
   <ul>
     <% @documents.each do |document| %>
       <% if document.files.attached? %>
@@ -16,5 +16,5 @@
     <% end %>
   </ul>
 <% else %>
-  <p style="color: grey; margin-top: 20px;">This folder is empty. Add a document to the folder.</p>
+        <p style="color: grey; margin-top: 20px;">This folder is empty. Add a document to the folder.</p>
 <% end %>

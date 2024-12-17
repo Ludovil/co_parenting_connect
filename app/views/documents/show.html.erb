@@ -3,8 +3,9 @@
   <% @document.files.each do |file| %>
     <li>
       <%= link_to file.filename.to_s, url_for(file), target: "_blank" %>
-      <%= link_to "Delete", delete_file_document_path(@document, file_id: file.signed_id),
-                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <%= link_to "Delete", delete_file_document_path(@document, file_id: file.id),
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+            class: "btn btn-sm btn-danger" %>
     </li>
   <% end %>
 </ul>
