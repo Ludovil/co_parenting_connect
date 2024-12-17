@@ -3,7 +3,7 @@
 <%= simple_form_for [@family, @child] do |form| %>
   <%= form.input :first_name, label: "First Name" %>
   <%= form.input :last_name, label: "Last Name" %>
-  <%= form.input :birth_date, as: :date, label: "Birth Date" %>
+  <%= form.input :birth_date, as: :string, label: "Birth Date", input_html:{ data: { controller: "datepicker" } } %>
   <%= form.button :submit, "Update Child" %>
 <% end %>
 
