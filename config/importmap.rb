@@ -12,3 +12,4 @@ pin "just-extend" # @5.1.1
 pin "@toast-ui/calendar", to: "@toast-ui--calendar.js" # @2.1.3
 pin "tui-date-picker" # @4.3.3
 pin "tui-time-picker" # @2.1.6
+pin "flatpickr" # @4.6.13

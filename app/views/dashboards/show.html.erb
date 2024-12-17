@@ -1,129 +1,62 @@
 <h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
-
-<h2>Your family:
-  <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %>
-</h2>
-
-<% if current_user.family %>
-  <h3>Members:</h3>
-  <% @members.each do |member| %>
-    <div><%= member %></div>
-  <% end %>
-
-  <h3>Children:</h3>
-  <% if @children.any? %>
-    <ul>
-      <% @children.each do |child| %>
-        <li>
-          <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
-          <%= link_to "Edit", edit_child_path(child), class: "btn btn-sm btn-primary" %>
-          <%= link_to "Delete", child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
-          <%= link_to "Documents", documents_path, class: "btn btn-sm btn-info" %>
-          <%= link_to "Guard", new_child_guard_path(child), class: "btn btn-sm btn-warning" %>
-          <%= link_to "Event", new_child_event_path(child), class: "btn btn-sm btn-secondary" %>
-          <%= link_to "Expenses", new_child_expense_path(child), class: "btn btn-sm btn-success" %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No children added yet.</p>
-  <% end %>
-
-  <%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat btn-primary" %>
-
-  <h3>Send an Invitation</h3>
-  <%= render 'invitations/form' %>
-
-  <h3>Invitations</h3>
-  <% @invitations.each do |invitation| %>
-    <div>
-      <p>Invitation sent to: <%= invitation.recipient.email %></p>
-      <p>Status: <%= invitation.status %></p>
-      <% if invitation.status == 'pending' %>
-        <%= button_to 'Cancel', cancel_invitation_path(invitation), method: :delete, class: "btn btn-sm btn-danger" %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <h3>Received Invitations</h3>
-  <% @invits.each do |invitation| %>
-    <div>
-      <p>Invitation received from: <%= invitation.family.name %> (sent by <%= invitation.user.email %>)</p>
-      <p>Status: <%= invitation.status %></p>
-      <% if invitation.status == 'pending' %>
-        <%= button_to 'Accept', accept_invitation_path(invitation), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-success" %>
-        <%= button_to 'Reject', reject_invitation_path(invitation), method: :patch, class: "btn btn-sm btn-danger" %>
-      <% end %>
-    </div>
-  <% end %>
-<% end %>
-
+<h2 class="text-md-center">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <h3>Your Family Calendar</h3>
-      <%= month_calendar do |date| %>
-        <%= date %>
-      <% end %>
-    </div>
     <div class="col-3">
       <% if current_user.family %>
-        <h3>Members:</h3>
-        <% @members.each do |member| %>
-          <p><%= member %></p>
-        <% end %>
-
-        <h3>Family Members:</h3>
-        <% current_user.family.family_members.each do |member| %>
-          <p><%= member.is_parent %></p>
-        <% end %>
-
-        <p>
-          <%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %>
-        </p>
-
-        <h3>Children:</h3>
-        <% if @children.any? %>
-          <ul>
-            <% @children.each do |child| %>
-              <li>
-                <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
+      <h3>Members :</h3>
+      <%@members.each do |member|%>
+      <p><%=member%></P>
+      <%end%>
+      <%current_user.family.family_members.each do |member|%>
+        <p><%=member.is_parent%></P>
+      <%end%>
+ <p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
+      <h3>Children:</h3>
+      <% if @children.any? %>
+        <ul>
+          <% @children.each do |child| %>
+            <li>
+              <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
                 <%= link_to "Edit", edit_child_path(child), class: "btn btn-ghost no-border" %>
                 <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn btn-ghost no-border' %>
                 <%= link_to "Guard", new_child_guard_path(child), class: "btn btn-ghost no-border" %>
                 <%= link_to "Event", new_child_event_path(child), class: "btn btn-ghost no-border" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn btn-ghost no-border" %>
-                <%= link_to "Documents", documents_path, class: "btn btn-sm btn-info" %>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p>No children added yet.</p>
-        <% end %>
-
-        <h3>Send an invitation</h3>
-        <%= render 'invitations/form' %>
-
-        <h3>Invitations</h3>
-        <% @invits.each do |invitation| %>
-          <div>
-            <p>Invitations received from: <%= invitation.family.name %></p>
-            <p>Sent by: <%= invitation.user.email %></p>
-            <p>Status: <%= invitation.status %></p>
-            <% if invitation.status == 'pending' %>
-              <%= button_to 'Accept', accept_invitation_path(invitation), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-success" %>
-              <%= button_to 'Reject', reject_invitation_path(invitation), method: :patch, class: "btn btn-sm btn-danger" %>
-            <% end %>
-          </div>
-        <% end %>
+                <%= link_to "Documents", documents_path(child), class: "btn btn-ghost no-border" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No children added yet.</p>
+      <% end %>
+      <h3>Send an invitation</h3>
+      <p><%= render 'invitations/form'%></p>
+      <%end%>
+      <h3>Invitations</h3>
+      <% @invits.each do |invitation| %>
+        <div>
+          <p>Invitations received from: <%= invitation.family.name %></p>
+          <p>sent by <%=invitation.user.email%> </p>
+          <p>Status: <%= invitation.status %></p>
+          <p><%=invitation.id%></p>
+          <% if invitation.status == 'pending' %>
+            <%= button_to 'Accept',  accept_invitation_path(invitation), method: :patch , data: {confirm: "Are you sure ? "}%>
+            <%= button_to 'Reject',  reject_invitation_path(invitation), method: :patch %>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <div class="col-9">
+    <p><%=@days_and_guards %></p>
+       <%= month_calendar do |date| %>
+        <% day_name = date.strftime("%A") %>
+        <div data-controller="highlight"
+            data-highlight-selected-days-value="<%= @days_and_guards.to_json %>">
+          <div class="guard-day"><%= day_name %></div>
+        </div>
+        <%= date %>
+      <% end %>
     </div>
   </div>
-</div>
-
-<!-- Calendar container with Stimulus controller -->
-<div id="calendar-container" data-controller="calendar" data-action="click->calendar#redirectToCalendar">
-  <%= render 'shared/calendar' %>
 </div>
