@@ -25,12 +25,18 @@
           <% @children.each do |child| %>
             <li>
               <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
+
                 <%= link_to "Edit", edit_child_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn no-border hover-effect' %>
                 <%= link_to "Guard", new_child_guard_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
+
                 <%= link_to "Documents", documents_path(child), class: "btn no-border hover-effect" %>
+
+                <%= link_to "Events", child_events_path(child), class: "btn no-border hover-effect" %>
+
+
             </li>
           <% end %>
         </ul>
@@ -48,12 +54,14 @@
       <p>sent to <%=invitation.recipient.email%></p>
       <p>Status: <%= invitation.status %></p>
 
+
       <% if invitation.status == 'pending' %>
         <%= link_to 'Accept', accept_invitation_path(invitation), method: :patch %>
         <%= link_to 'cancel', reject_invitation_path(invitation), method: :patch %>
       <% end %>
       </div>
       <% end %>
+
 
 
       <% @invits.each do |invitation| %>
