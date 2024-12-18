@@ -2,33 +2,36 @@
 
 <h2>One week pattern</h2>
 
+<%@taken_day%>
+
+
 <%= simple_form_for([@child, @guard]) do |f| %>
   <div class="form-group">
-    <%= f.input :monday, as: :boolean, label: "Monday", input_html: { class: "form-check-input" } %>
+    <%= f.input :monday, as: :boolean, label: "Monday", input_html: { class: "form-check-input", disabled: @taken_days.include?("monday") } %>
   </div>
 
   <div class="form-group">
-    <%= f.input :tuesday, as: :boolean, label: "Tuesday", input_html: { class: "form-check-input" } %>
+    <%= f.input :tuesday, as: :boolean, label: "Tuesday", input_html: { class: "form-check-input", disabled: @taken_days.include?("tuesday") } %>
   </div>
 
   <div class="form-group">
-    <%= f.input :wednesday, as: :boolean, label: "Wednesday", input_html: { class: "form-check-input" } %>
+    <%= f.input :wednesday, as: :boolean, label: "Wednesday", input_html: { class: "form-check-input", disabled: @taken_days.include?("wednesday") } %>
   </div>
 
   <div class="form-group">
-    <%= f.input :thursday, as: :boolean, label: "Thursday", input_html: { class: "form-check-input" } %>
+    <%= f.input :thursday, as: :boolean, label: "Thursday", input_html: { class: "form-check-input", disabled: @taken_days.include?("thursday") } %>
   </div>
 
   <div class="form-group">
-    <%= f.input :friday, as: :boolean, label: "Friday", input_html: { class: "form-check-input" } %>
+    <%= f.input :friday, as: :boolean, label: "Friday", input_html: { class: "form-check-input", disabled: @taken_days.include?("friday") } %>
   </div>
 
   <div class="form-group">
-    <%= f.input :saturday, as: :boolean, label: "Saturday", input_html: { class: "form-check-input" } %>
+    <%= f.input :saturday, as: :boolean, label: "Saturday", input_html: { class: "form-check-input", disabled: @taken_days.include?("saturday") } %>
   </div>
 
   <div class="form-group">
-    <%= f.input :sunday, as: :boolean, label: "Sunday", input_html: { class: "form-check-input" } %>
+    <%= f.input :sunday, as: :boolean, label: "Sunday", input_html: { class: "form-check-input", disabled: @taken_days.include?("sunday") } %>
   </div>
 
   <%= f.hidden_field :child_id, value: @child.id %>

@@ -3,13 +3,26 @@
     min-height: 80vh;
   }
   .today {
-    background-color: #faf3dd;
+    background-color: $primary;
   }
   .highlight-day {
     color: white;
     padding: 8px 24px;
     border-radius: 4px;
-    background: #1edd88;
+    background: $calendar-current-user;
+  }
+
+  .user-one-highlight-day {
+    color: white;
+    padding: 8px 24px;
+    border-radius: 4px;
+    background: $calendar-current-user;
+  }
+  .user-two-highlight-day {
+    color: white;
+    padding: 8px 24px;
+    border-radius: 4px;
+    background: $calendar-second-user;
   }
 }
 

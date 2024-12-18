@@ -12,11 +12,9 @@
 @import "components/index";
 @import "pages/index";
 
-
 body {
   background-color: hwb(0 100% 0%);
 }
-
 
 .word-highlight {
   color: $green;
@@ -28,4 +26,25 @@ body {
 
 .main-title {
   font-size: 70px;
+}
+
+.current-user-bg {
+  background-color: $calendar-current-user;
+}
+
+.second-user-bg {
+  background-color: $calendar-second-user;
+}
+
+.hover-effect {
+  color: $light-black;
+  transition: color 0.3s ease;
+}
+
+.hover-effect:hover {
+  color: $primary;
+}
+
+.hidden {
+  display: none;
 }

@@ -2,12 +2,14 @@ class ChildrenController < ApplicationController
   before_action :authenticate_user!
   before_action :set_child, only: [:edit, :update, :destroy, :show]
 
+
   def show
   end
 
   def new
     @family = current_user.family
     @child = @family.children.new
+
   end
 
   def create
@@ -45,6 +47,11 @@ class ChildrenController < ApplicationController
 
   private
 
+
+  def event_params
+    params.require(:event).permit(:title, :start_date, :end_date, :notes, user_ids: [], child_ids: [])
+  end
+  
   def set_child
     @child = current_user.family.children.find(params[:id])
   end

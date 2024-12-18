@@ -30,12 +30,12 @@ Rails.application.routes.draw do
 
     end
 
-    resources :family_members, only: [:new, :create]
+    resources :family_members, only: [:new, :create, :index]
   end
 
   # Children
   resources :children, only: [:show, :edit, :update, :destroy] do
-    resources :events, only: [:new, :create, :index]
+    resources :events, only: [:new, :create, :index, :show, :destroy]
     resources :guards, only: [:new, :create, :index]
     resources :expenses, only: [:new, :create, :index] do
       collection do
@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   end
 
   # Events
-  resources :events, only: [:show, :edit, :update, :destroy]
+  resources :events, only: [:show, :edit, :update, :create, :index]
 
   # Guards
   resources :guards, only: [:show, :edit, :update, :destroy]
@@ -66,7 +66,7 @@ Rails.application.routes.draw do
 
   # other routes
 
- get 'calendar', to: 'calendar#index'
+ get '/calendar', to: 'calendar#index'
  get 'calendar/:date', to: 'calendar#index', as: 'calendar_date'
  get 'calendar/:year/:month/:day', to: 'calendar#show_day', as: 'calendar_day'
 

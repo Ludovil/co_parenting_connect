@@ -1,4 +1,4 @@
-<h1>Create a New Event</h1>
+<h1><%= @event.new_record? ? 'Create a New Event' : 'Edit Event' %></h1>
 
 <%= form_with(model: @event) do |form| %>
 
@@ -14,17 +14,17 @@
 
   <div class="field">
     <%= form.label :status, "Importance Level" %>
-    <%= form.select :status, options_for_select(['High', 'Medium', 'Low']), { include_blank: "Select Importance:" }, class: "form-select" %>
+    <%= form.select :status, options_for_select(['High', 'Medium', 'Low'], @event.status), { include_blank: "Select Importance:" }, class: "form-select" %>
   </div>
 
   <div class="field">
     <%= form.label :start_date %>
-    <%= form.datetime_local_field :start_date, class: "form-input" %>
+    <%= form.datetime_local_field :start_date, class: "form-input", value: @event.start_date ? @event.start_date.strftime("%Y-%m-%dT%H:%M") : nil %>
   </div>
 
   <div class="field">
     <%= form.label :end_date %>
-    <%= form.datetime_local_field :end_date, class: "form-input" %>
+    <%= form.datetime_local_field :end_date, class: "form-input", value: @event.end_date ? @event.end_date.strftime("%Y-%m-%dT%H:%M") : nil %>
   </div>
 
   <div class="field">
@@ -44,8 +44,9 @@
   </div>
 
   <div class="actions">
-    <%= form.submit "Create Event", class: "btn-submit" %>
+    <%= form.submit @event.new_record? ? "Create Event" : "Update Event", class: "btn-submit" %>
   </div>
+
 <% end %>
 
 <%= link_to 'Back to Dashboard', dashboard_path, class: 'btn-back' %>
