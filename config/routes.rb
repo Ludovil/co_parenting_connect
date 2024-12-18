@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
   # Children
   resources :children, only: [:show, :edit, :update, :destroy] do
-    resources :events, only: [:new, :create, :index]
+    resources :events, only: [:new, :create, :index, :show]
     resources :guards, only: [:new, :create, :index]
     resources :expenses, only: [:new, :create, :index] do
       collection do

@@ -1,0 +1,35 @@
+<h1>All Events</h1>
+
+<table class="events-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Notes</th>
+      <th>Importance Level</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Assigned Children</th>
+      <th>Receivers</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.notes %></td>
+        <td><%= event.status %></td>
+        <td><%= event.start_date.strftime("%Y-%m-%d %H:%M") if event.start_date %></td>
+        <td><%= event.end_date.strftime("%Y-%m-%d %H:%M") if event.end_date %></td>
+        <td><%= "#{event.child.first_name} #{event.child.last_name}" if event.child %></td>
+        <td><%= event.receiver.first_name %> <%= event.receiver.last_name %></td>
+        <td>
+          <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-edit' %>
+          <%= link_to 'Delete', edit_event(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-delete' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Create New Event',  new_child_event_path(@child), class: 'btn btn-new-event' %>

@@ -26,7 +26,7 @@ class DashboardsController < ApplicationController
         @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
       end
       # @selected_days_upcased = @selected_days.flatten.map(&:capitalize)
-
+    end
 
   end
 end

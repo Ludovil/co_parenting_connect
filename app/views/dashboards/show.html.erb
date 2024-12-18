@@ -27,6 +27,7 @@
                 <%= link_to "Guard", new_child_guard_path(child), class: "btn btn-ghost no-border" %>
                 <%= link_to "Event", new_child_event_path(child), class: "btn btn-ghost no-border" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn btn-ghost no-border" %>
+                <%= link_to "Events", child_events_path(child), class: "btn btn-ghost no-border" %>
             </li>
           <% end %>
         </ul>
@@ -38,8 +39,6 @@
       <p><%= render 'invitations/form'%></p>
       <%end%>
       <h3>Invitations</h3>
-
-
 
 
       <% @invits.each do |invitation| %>
@@ -75,4 +74,3 @@
     </div>
   </div>
 </div>
-
