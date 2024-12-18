@@ -30,6 +30,7 @@
                 <%= link_to "Guard", new_child_guard_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
+                <%= link_to "Documents", documents_path(child), class: "btn no-border hover-effect" %>
             </li>
           <% end %>
         </ul>
@@ -42,7 +43,17 @@
       <%end%>
       <h3>Invitations</h3>
 
+      <% @invitations.each do |invitation| %>
+      <div>
+      <p>sent to <%=invitation.recipient.email%></p>
+      <p>Status: <%= invitation.status %></p>
 
+      <% if invitation.status == 'pending' %>
+        <%= link_to 'Accept', accept_invitation_path(invitation), method: :patch %>
+        <%= link_to 'cancel', reject_invitation_path(invitation), method: :patch %>
+      <% end %>
+      </div>
+      <% end %>
 
 
       <% @invits.each do |invitation| %>
@@ -61,10 +72,10 @@
 
     <div class="col-9">
       <% if @days_and_guards.present? %>
-        <p class="current-user-bg">Current User = <%=current_user.first_name%></p>
+        <button class="current-user-bg btn btn-flat"><%=current_user.first_name%></button>
         <%other_user = @days_and_guards.find { |guard| guard[:user] != current_user.first_name }%>
          <% if other_user.present? %>
-        <p class="second-user-bg">Other User = <%= other_user[:user] %></p>
+        <button class="second-user-bg btn btn-flat-second-user"><%= other_user[:user] %></button>
         <% else %>
         <p>no other user</p>
         <% end %>
@@ -78,7 +89,6 @@
             data-highlight-user-value="<%= current_user.first_name %>">
           <div class="guard-day"><%= day_name %></div>
         </div>
-
       <% end %>
 
     </div>

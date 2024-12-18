@@ -2,12 +2,26 @@
   color: $white;
   padding: 8px 24px;
   border-radius: 4px;
-  background: $green;
+  background: $primary;
   transition: background 0.3s ease;
   text-decoration: none;
 }
 
 .btn-flat:hover {
+  background: $dark-green;
+  color: white;
+}
+
+.btn-flat-second-user {
+  color: $white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: $calendar-second-user;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-flat-second-user:hover {
   background: $dark-green;
   color: white;
 }
