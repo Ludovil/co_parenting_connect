@@ -28,7 +28,34 @@
 
                 <%= link_to "Edit", edit_child_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn no-border hover-effect' %>
-                <%= link_to "Guard", new_child_guard_path(child), class: "btn no-border hover-effect" %>
+                <%= link_to "Guard", new_child_guard_path(child), data: { bs_toggle: "modal", bs_target: "#guard-modal-new" }, class: "btn no-border hover-effect" %>
+
+              <!-- Modal Guard -->
+              <div class="modal fade" id="guard-modal-new" tabindex="-1" role="dialog" aria-labelledby="guardModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="guardModalTitle">Create a guard</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if current_user.family && current_user.family.children.any? %>
+          <% child = current_user.family.children.first %>
+          <% guard = child.guards.new(user: current_user) %>
+          <%= render "guards/new",
+                     child: child,
+                     guard: guard,
+                     taken_days: @taken_days || [] %>
+        <% else %>
+          <p>No children found</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
                 <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
 
