@@ -19,14 +19,30 @@ class DashboardsController < ApplicationController
     @children = current_user.family ? current_user.family.children : []
     @children.each do |child|
       @guards = child.guards
+
+     # @guard_user = child.guards.where(user_id: current_user.id)
+
       @selected_days = []
       @days_and_guards = []
       @guards.each do |guard|
-        @selected_days << guard.attributes.select { |key, value| value == true }.keys
-        @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
+
+       # @selected_days << guard.attributes.select { |key, value| value == true }.keys
+       # @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
+        active_days = guard.attributes.select { |key, value| value == true }.keys
+        @days_and_guards << { days: active_days, user: guard.user.first_name }
       end
+
       # @selected_days_upcased = @selected_days.flatten.map(&:capitalize)
+
     end
 
+      # @guards_user.each do |guard|
+      #   @selected_days << guard.attributes.select { |key, value| value == true }.keys
+      #   @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
+      # end
+
+
+
+  end
   end
 end
