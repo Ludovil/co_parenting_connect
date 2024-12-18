@@ -25,11 +25,14 @@
           <% @children.each do |child| %>
             <li>
               <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
+
                 <%= link_to "Edit", edit_child_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn no-border hover-effect' %>
                 <%= link_to "Guard", new_child_guard_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
+                <%= link_to "Events", child_events_path(child), class: "btn no-border hover-effect" %>
+
             </li>
           <% end %>
         </ul>
@@ -41,8 +44,6 @@
       <p><%= render 'invitations/form'%></p>
       <%end%>
       <h3>Invitations</h3>
-
-
 
 
       <% @invits.each do |invitation| %>

@@ -33,10 +33,14 @@ class DashboardsController < ApplicationController
       end
 
       # @selected_days_upcased = @selected_days.flatten.map(&:capitalize)
+
+    end
+
       # @guards_user.each do |guard|
       #   @selected_days << guard.attributes.select { |key, value| value == true }.keys
       #   @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
       # end
+
 
 
   end
