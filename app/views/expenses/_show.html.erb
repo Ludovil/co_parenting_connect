@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-between align-items-center">
+  <div class="expense-date">
+    <p class="mb-1"><strong>Date:</strong> <%= expense.date %></p>
+  </div>
+  <div class="expense-description">
+  <p class="mb-1"><strong>Category:</strong> <%= expense.category %></p>
+  <p class="mb-1"><strong>Description:</strong> <%= expense.description %></p>
+  <p class="mb-1"><strong>Payer:</strong> <%= expense.user.first_name %>
+    </div>
+</div>

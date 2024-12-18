@@ -1,4 +1,4 @@
-<h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
+<h1 class="text-md-center">Welcome to your dashboard, <%= current_user.first_name %>!</h1>
 
 <h2 class="text-md-center">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
 

@@ -1,8 +1,15 @@
 .btn-flat {
   color: $white;
+
+  padding: 15px 24px;
+  width:auto;
+  border-radius: 40px;
+  background: $green;
+
   padding: 8px 24px;
-  border-radius: 4px;
+
   background: $primary;
+
   transition: background 0.3s ease;
   text-decoration: none;
 }

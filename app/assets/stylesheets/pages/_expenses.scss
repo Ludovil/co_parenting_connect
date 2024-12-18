@@ -1,0 +1,77 @@
+
+
+.user-list{
+  font-size:20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.total-expenses{
+  font-size: 20px;
+  color: grey;
+}
+
+.total-expenses-child {
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.col-3.justify-content-center.d-flex{
+  background-color:rgb(242, 242, 242);
+  border-radius: 30px;
+  margin: 20px 10px 10px 0px;
+  padding:20px;
+}
+
+.expense-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #95d2b3;
+}
+
+.expense-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.expense-date p {
+  white-space: nowrap;
+}
+
+.mb-1.day {
+  font-size: 30px;
+}
+
+.expense-amount
+{
+  font-size: 30px;
+}
+
+.expense-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.expense-description p:first-child {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.expense-description p:last-child {
+  color: #666;
+  font-size: 16px;
+}
+
+p{
+  font-family: Helvetica;
+}
+
+.list-group-item{
+  font-size: 16px;
+}
