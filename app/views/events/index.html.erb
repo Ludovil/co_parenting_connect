@@ -24,8 +24,7 @@
         <td><%= "#{event.child.first_name} #{event.child.last_name}" if event.child %></td>
         <td><%= event.receiver.first_name %> <%= event.receiver.last_name %></td>
         <td>
-          <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-edit' %>
-          <%= link_to 'Delete', edit_event(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-delete' %>
+          <%= link_to 'Action', child_event_path(@child, event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         </td>
       </tr>
     <% end %>

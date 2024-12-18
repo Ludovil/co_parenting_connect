@@ -10,7 +10,7 @@ class EventsController < ApplicationController
   end
 
   def show
-
+    @child = Child.find(params[:child_id])
     @event
   end
 
