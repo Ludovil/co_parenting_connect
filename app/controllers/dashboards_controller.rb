@@ -40,9 +40,5 @@ class DashboardsController < ApplicationController
       #   @selected_days << guard.attributes.select { |key, value| value == true }.keys
       #   @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
       # end
-
-
-
-  end
   end
 end
