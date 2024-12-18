@@ -17,9 +17,10 @@
 @import "dropzone";
 @import "config/variables";
 
+@import "footer";
 
 body {
-  background-color: white;
+  background-color: hwb(0 100% 0%);
 }
 
 .word-highlight {
@@ -51,4 +52,4 @@ body {
   color: $primary;
 }
 
-@import "footer";
+

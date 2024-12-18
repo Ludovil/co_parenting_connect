@@ -1,4 +1,6 @@
+
 <h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
+
 <h2 class="text-md-center">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
 <div class="container">
   <div class="row">
@@ -21,12 +23,17 @@
           <% @children.each do |child| %>
             <li>
               <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
+
                 <%= link_to "Edit", edit_child_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: "btn no-border hover-effect" %>
                 <%= link_to "Guard", new_child_guard_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Documents", documents_path(child), class: "btn no-border hover-effect" %>
+                <%= link_to "Events", child_events_path(child), class: "btn no-border hover-effect" %>
+
+
+
             </li>
           <% end %>
         </ul>
@@ -37,6 +44,22 @@
       <p><%= render 'invitations/form'%></p>
       <%end%>
       <h3>Invitations</h3>
+
+      <% @invitations.each do |invitation| %>
+      <div>
+      <p>sent to <%=invitation.recipient.email%></p>
+      <p>Status: <%= invitation.status %></p>
+
+
+      <% if invitation.status == 'pending' %>
+        <%= link_to 'Accept', accept_invitation_path(invitation), method: :patch %>
+        <%= link_to 'cancel', reject_invitation_path(invitation), method: :patch %>
+      <% end %>
+      </div>
+      <% end %>
+
+
+
       <% @invits.each do |invitation| %>
         <div>
           <p>Invitations received from: <%= invitation.family.name %></p>
@@ -53,10 +76,10 @@
 
     <div class="col-9">
       <% if @days_and_guards.present? %>
-        <p class="current-user-bg">Current User = <%=current_user.first_name%></p>
+        <button class="current-user-bg btn btn-flat"><%=current_user.first_name%></button>
         <%other_user = @days_and_guards.find { |guard| guard[:user] != current_user.first_name }%>
          <% if other_user.present? %>
-        <p class="second-user-bg">Other User = <%= other_user[:user] %></p>
+        <button class="second-user-bg btn btn-flat-second-user"><%= other_user[:user] %></button>
         <% else %>
         <p>no other user</p>
         <% end %>
@@ -70,7 +93,6 @@
             data-highlight-user-value="<%= current_user.first_name %>">
           <div class="guard-day"><%= day_name %></div>
         </div>
-
       <% end %>
 
     </div>
