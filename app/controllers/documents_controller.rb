@@ -42,7 +42,13 @@ class DocumentsController < ApplicationController
     file = @document.files.find(params[:file_id])
     if file
       file.purge
-      redirect_to document_path(@document), status: :see_other
+      if @document.files.attached? == false
+        @document.destroy
+        redirect_to documents_path, status: :see_other
+      else
+        redirect_to document_path(@document), status: :see_other
+      end
+
       #render json: { message: "File deleted successfully" }, status: :ok
     else
       render json: { error: "File not found" }, status: :not_found
