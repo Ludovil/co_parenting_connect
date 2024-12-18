@@ -1,11 +1,10 @@
-<h1 class="text-md-center">Welcome to your dashboard, <%= current_user.first_name %>!</h1>
+
+<h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
 
 <h2 class="text-md-center">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
-
 <div class="container">
   <div class="row">
     <div class="col-3">
-
       <% if current_user.family %>
       <h3>Family Members :</h3>
       <%current_user.family.family_members.each do |member|%>
@@ -19,7 +18,6 @@
 
       <p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
       <h3>Children:</h3>
-
       <% if @children.any? %>
         <ul>
           <% @children.each do |child| %>
@@ -27,14 +25,13 @@
               <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
 
                 <%= link_to "Edit", edit_child_path(child), class: "btn no-border hover-effect" %>
-                <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn no-border hover-effect' %>
+                <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: "btn no-border hover-effect" %>
                 <%= link_to "Guard", new_child_guard_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
-
                 <%= link_to "Documents", documents_path(child), class: "btn no-border hover-effect" %>
-
                 <%= link_to "Events", child_events_path(child), class: "btn no-border hover-effect" %>
+
 
 
             </li>
@@ -43,7 +40,6 @@
       <% else %>
         <p>No children added yet.</p>
       <% end %>
-
       <h3>Send an invitation</h3>
       <p><%= render 'invitations/form'%></p>
       <%end%>

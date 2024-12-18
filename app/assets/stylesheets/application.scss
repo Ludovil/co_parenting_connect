@@ -12,6 +12,13 @@
 @import "components/index";
 @import "pages/index";
 
+// dropzone (drag & drop)
+@import "variables";
+@import "dropzone";
+@import "config/variables";
+
+@import "footer";
+
 body {
   background-color: hwb(0 100% 0%);
 }
@@ -45,6 +52,4 @@ body {
   color: $primary;
 }
 
-.hidden {
-  display: none;
-}
+
