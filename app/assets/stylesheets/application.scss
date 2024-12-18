@@ -17,8 +17,6 @@
 @import "dropzone";
 @import "config/variables";
 
-@import "footer";
-
 body {
   background-color: hwb(0 100% 0%);
 }
@@ -51,5 +49,3 @@ body {
 .hover-effect:hover {
   color: $primary;
 }
-
-
