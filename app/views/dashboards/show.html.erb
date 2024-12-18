@@ -1,7 +1,7 @@
 
 <h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
 
-<h2 class="text-md-center">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
+<h2 class="text-md-center mb-3">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
 <div class="container">
   <div class="row">
     <div class="col-3">
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <p><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
+      <p class="text-center"><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
 
       <% if @children.any? %>
         <div class="card-dashboard p-3">
