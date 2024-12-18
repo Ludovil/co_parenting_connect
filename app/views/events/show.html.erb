@@ -1,0 +1,20 @@
+<h1>Event Details</h1>
+
+<div class="event-details">
+  <p><strong>Title:</strong> <%= @event.title %></p>
+  <p><strong>Notes:</strong> <%= @event.notes %></p>
+  <p><strong>Importance Level:</strong> <%= @event.status %></p>
+  <p><strong>Start Date:</strong> <%= @event.start_date.strftime("%Y-%m-%d %H:%M") if @event.start_date %></p>
+  <p><strong>End Date:</strong> <%= @event.end_date.strftime("%Y-%m-%d %H:%M") if @event.end_date %></p>
+  <p><strong>Assigned Child:</strong>
+    <%= "#{@event.child.first_name} #{@event.child.last_name}" if @event.child %>
+  </p>
+  <p><strong>Receiver:</strong>
+    <%= @event.receiver.first_name %> <%= @event.receiver.last_name %>
+  </p>
+</div>
+
+<div class="actions">
+  <%= link_to 'Delete', child_event_path(@event.child_id, @event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <%= link_to 'Back to Events', child_events_path(@child), class: 'btn btn-back' %>
+</div>

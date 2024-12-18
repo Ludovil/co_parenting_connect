@@ -1,7 +1,17 @@
-<%= simple_form_for [@child, @expense] do |f| %>
-  <%= f.input :amount, label: "Amount", placeholder: "Enter the amount", required: true%>
-  <%= f.input :description, label: "Description", placeholder: "Enter the description", required: true%>
-  <%= f.input :date, label: "Date", required: true, :end_year => 2024 %>
+<%= simple_form_for([child, expense]) do |f| %>
+  <%= f.input :amount, label: "Amount", placeholder: "Enter the amount", required: true %>
+  <%= f.input :category, label: "Category", as: :select, placeholder: "Choose the category", collection: [
+      'Food',
+      'Clothing',
+      'Education',
+      'Healthcare',
+      'Entertainment',
+      'Transportation',
+      'Housing',
+      'Other'
+    ],required: true %>
+  <%= f.input :description, label: "Description", placeholder: "Enter the description", required: true %>
+  <%= f.input :date, label: "Date", required: true, end_year: 2024 %>
   <%= f.input :user_id, label: "Payer", as: :select, collection: current_user.family.users.map { |user| ["#{user.first_name} #{user.last_name}", user.id] }, required: true %>
-  <%= f.button :submit,  (action_name == 'edit' ? 'Update Expense' : 'Create Expense'), class: "btn btn-primary" %>
+  <%= f.button :submit, (expense.persisted? ? 'Update Expense' : 'Create Expense'), class: "btn btn-primary" %>
 <% end %>
