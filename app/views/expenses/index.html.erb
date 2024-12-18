@@ -1,38 +1,138 @@
 <div class="container-md pt-3">
-  <h1>Expenses for <%= @child.first_name %></h1>
-  <h2>Total expenses : <%= @child.expenses.sum(:amount) %> €</h2>
-  <h3><% @expenses.group_by(&:user).each do |user, expenses| %>
-      <strong><%= user.first_name %></strong>: <%= expenses.sum(&:amount) %> €
-      </p>
-    <% end %>
-  <%= link_to 'Add an expense', new_child_expense_path, class: 'btn btn-primary' %>
-  <%= link_to 'Pay', pay_child_expenses_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger"%>
+  <h1>Expenses for <div class="word-highlight"><%= @child.first_name %></div></h1>
 
-<%# list of expenses %>
- <% @expenses.each do |expense| %>
-
-    <div class="card d-flex flex-row align-items-center my-3">
-      <div class="card-body flex-grow-1">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="expense-date">
-            <p class="mb-1"><strong>Date:</strong> <%= expense.date %></p>
-          </div>
-          <div class="expense-description">
-            <p class="mb-1"><strong>Description:</strong> <%= expense.description %></p>
-            <p class="mb-1"><strong>Payer:</strong> <%= expense.user.first_name %>
-          </div>
-          <div class="expense-amount">
-            <p class="mb-0"><strong>Amount:</strong> <%= number_to_currency(expense.amount, unit: "€", format: "%n %u") %></p>
-          </div>
-          <div class="expense-actions">
-            <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-sm btn-primary me-2" %>
-            <%= link_to "Delete", expense_path(expense),
-                data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
-                class: "btn btn-sm btn-danger" %>
-          </div>
+  <%# expenses and equitable part%>
+<div class="row justify-content-center pt-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Summary</h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <span class="fw-bold">Total expenses:</span>
+              <%= @child.expenses.sum(:amount) %> €
+            </li>
+            <li class="list-group-item">
+              <span class="fw-bold">Equitable part:</span>
+              <%= @child.expenses.sum(:amount) / @child.expenses.distinct.count(:user).round(2)  %> €
+            </li>
+          </ul>
         </div>
       </div>
-      <%= link_to '', expense_path(expense), class: 'card-link'  %>
     </div>
-  <% end %>
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">User Contributions</h3>
+          <ul class="list-group list-group-flush">
+            <% @user_balances.each do |user_balance| %>
+              <li class="list-group-item">
+                <strong><%= user_balance[:user].first_name%></strong>
+                paid <%= number_to_currency(user_balance[:user].expenses.sum(:amount), unit: "€", format: "%n %u") %>
+                <% if user_balance[:balance] > 0 %>
+                  and overpaid <%= number_to_currency(user_balance[:balance], unit: "€", format: "%n %u") %>
+                <% elsif user_balance[:balance] < 0 %>
+                  and owes <%= number_to_currency(-user_balance[:balance], unit: "€", format: "%n %u") %>.
+                <% else %>
+                  and paid their exact share.
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    </div>
+    <div class="col-auto d-flex justify-content-end">
+      <%= link_to new_child_expense_path, data: { bs_toggle: "modal", bs_target: "#expense-modal-new" }, class: 'btn btn-flat me-3' do %>
+    <i class="fa-solid fa-plus me-1"></i> Add an expense
+    <% end %>
+    <div class="modal fade" id="expense-modal-new" tabindex="-1" role="dialog" aria-labelledby="expenseModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="expenseModalTitle">Create an expense</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <%= render "form", child: @child, expense: @expense %>
+              </div>
+            </div>
+          </div>
+        </div>
+    <%= link_to pay_child_expenses_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-flat" do%>
+    <i class="fa-solid fa-plus fa-rotate-by" style="color: #ffffff; --fa-rotate-angle: 45deg;"></i> Pay
+    <% end %>
+    </div>
+
+
+  <%# list of expenses %>
+  <div class="list-expenses pt-2">
+  <% if @expenses.empty? %>
+    <p>No expenses reported yet.</p>
+  <% else %>
+    <% expenses_grouped_by_date = @expenses.group_by(&:date) %>
+    <% expenses_grouped_by_date.each do |date, expenses| %>
+      <h2 class="pt-2"><%= date.strftime("%B %Y") %></h2>
+      <% expenses.each do |expense| %>
+        <div class="card d-flex flex-row align-items-center my-3">
+          <div class="card-body flex-grow-1">
+            <div class="d-flex align-items-center">
+
+            <!-- Date -->
+            <div class="expense-date me-5">
+                <p class="mb-1 month"><%= expense.date.strftime("%b") %><br></p>
+                <p class="mb-1 day"><%= expense.date.strftime("%d") %></p>
+            </div>
+
+            <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <div class="expense-icon me-3">
+    <span class="expense-icon-circle d-flex align-items-center justify-content-center">
+      <i class="fas <%= expense.category_icon %> me-1" style="font-size: 35px;"></i>
+    </span>
+  </div>
+
+  <!-- Description and Payer -->
+  <div class="expense-description me-3">
+    <p class="description mb-1"><strong><%= expense.description %></strong></p>
+    <p class="first-name mb-1">Paid by <%= expense.user.first_name %></p>
+  </div>
+</div>
+              <div class="expense-amount ms-auto">
+                <p class="mb-0"><%= number_to_currency(expense.amount, unit: "€", format: "%n %u") %></p>
+              </div>
+            </div>
+          </div>
+          <%= link_to '', expense_path(expense), class: 'card-link', data: { bs_toggle: "modal", bs_target: "#expense-modal-#{expense.id}" } %>
+        </div>
+
+        <div class="modal fade" id="expense-modal-<%= expense.id %>" tabindex="-1" role="dialog" aria-labelledby="expenseModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="expense-details">Expense Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <%= render "show", expense: expense %>
+              </div>
+              <div class="modal-footer">
+                <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-sm btn-flat me-2" %>
+
+
+                <%= link_to "Delete", expense_path(expense),
+                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
+                    class: "btn btn-sm btn-ghost" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <% end %>
+  </div>
 </div>
