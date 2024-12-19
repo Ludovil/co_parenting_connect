@@ -24,7 +24,6 @@
 
 <script type="module">
   import Dropzone from "dropzone";
-
   const dropzone = new Dropzone("#dropzone", {
     url: "<%= documents_path %>",
     paramName: "document[files][]",
@@ -36,7 +35,6 @@
     },
     autoProcessQueue: false,
   });
-
   const submitButton = document.getElementById("submit-button");
   submitButton.addEventListener("click", () => {
     if (dropzone.getQueuedFiles().length > 0) {
@@ -45,12 +43,10 @@
       console.log("No files to upload.");
     }
   });
-
   dropzone.on("queuecomplete", () => {
     console.log("All files uploaded successfully.");
     window.location.href = "<%= documents_path %>";
   });
-
   dropzone.on("error", (file, errorMessage) => {
     console.error("Upload error:", errorMessage);
   });

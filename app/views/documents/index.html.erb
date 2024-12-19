@@ -15,7 +15,6 @@
       </div>
     </div>
   </div>
-
   <!-- Add Document Button -->
   <div class="documents-btn-container">
     <%= link_to new_document_path, class: "documents-btn-rounded d-inline-flex align-items-center justify-content-center" do %>
@@ -23,8 +22,6 @@
     <% end %>
   </div>
 </div>
-
-
   <!-- Documents List -->
   <div class="documents-list pt-2">
     <% if @documents.empty? %>
@@ -38,7 +35,6 @@
               <p class="documents-filename mb-1"><strong><%= file.filename.to_s %></strong></p>
               <p class="documents-upload-date mb-0">Uploaded on: <%= document.created_at.strftime("%B %d, %Y") %></p>
             </div>
-
             <!-- Action Buttons -->
             <div class="documents-actions d-flex gap-2">
               <%= link_to "View", url_for(file), target: "_blank", class: "btn btn-sm btn-outline-success documents-btn-sm" %>
