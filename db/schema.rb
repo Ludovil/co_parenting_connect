@@ -87,11 +87,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_18_102857) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-
     t.string "title"
     t.date "start_date"
     t.date "end_date"
-
     t.index ["child_id"], name: "index_events_on_child_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
