@@ -15,6 +15,7 @@ export default class extends Controller {
       addRemoveLinks: true,
       dictDefaultMessage: "Drag files here to upload",
       dictRemoveFile: "Delete",
+      clickable: true,
     });
 
     dropzone.on("success", (file, response) => {
