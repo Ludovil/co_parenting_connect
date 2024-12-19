@@ -1,0 +1,149 @@
+.documents-header {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.documents-card-item {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.documents-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #95d2b3;
+  color: white;
+}
+
+.documents-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  .documents-filename {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .documents-upload-date {
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+.documents-actions {
+  display: flex;
+  gap: 10px;
+
+  .documents-btn-sm {
+    font-size: 13px;
+    padding: 6px 20px; /* Increase horizontal padding */
+    border: none; /* Remove outline borders */
+    border-radius: 30px; /* Fully rounded corners */
+    transition: all 0.3s ease; /* Smooth transitions */
+    font-weight: bold; /* Slightly bold font */
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    color: white; /* Ensure text color is white */
+
+    &:hover {
+      transform: scale(1.05); /* Slightly enlarge on hover */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    }
+  }
+
+  /* Style for the View button */
+  .btn-outline-success {
+    background-color: #6ca99e; /* Soft green */
+    color: #fff; /* White text */
+    border: none;
+
+    &:hover {
+      background-color: #5c958b; /* Darker green on hover */
+    }
+  }
+
+  /* Style for the Delete button */
+  .btn-outline-danger {
+    background-color: #f5a623; /* Soft orange */
+    color: #fff; /* White text */
+    border: none;
+
+    &:hover {
+      background-color: #e6951f; /* Darker orange on hover */
+    }
+  }
+}
+
+.documents-empty-message {
+  font-size: 18px;
+  color: grey;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.no-margin {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.button-rounded {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.documents-btn-rounded {
+  @extend .button-rounded;
+  background-color: #6ca99e;
+
+  &:hover {
+    background-color: #5c958b;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 169, 158, 0.5);
+  }
+}
+
+.documents-card {
+  margin-left: 0;
+  background-color: rgb(242, 242, 242);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.documents-summary-section {
+  margin-bottom: 20px;
+  margin-top: 10px; // Space below the summary section
+}

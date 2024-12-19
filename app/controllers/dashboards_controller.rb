@@ -14,6 +14,7 @@ class DashboardsController < ApplicationController
 
   def show
     start_date = params.fetch(:start_date, Date.today).to_date
+
     @events =
     if current_user.family.present? == false
        @event = nil
@@ -24,6 +25,7 @@ class DashboardsController < ApplicationController
                   family_members: { family_id: current_user.family.id }
                 ).distinct
       end
+
     @invitations = current_user.invitations
     @invitation = Invitation.new
     @invits = Invitation.where(recipient_id: current_user.id)
@@ -41,29 +43,21 @@ class DashboardsController < ApplicationController
     @children = current_user.family ? current_user.family.children : []
     @children.each do |child|
       @guards = child.guards
-
      # @guard_user = child.guards.where(user_id: current_user.id)
-
       @selected_days = []
       @days_and_guards = []
       @guards.each do |guard|
-
        # @selected_days << guard.attributes.select { |key, value| value == true }.keys
        # @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
         active_days = guard.attributes.select { |key, value| value == true }.keys
         @days_and_guards << { days: active_days, user: guard.user.first_name }
       end
-
       # @selected_days_upcased = @selected_days.flatten.map(&:capitalize)
-
     end
-
       # @guards_user.each do |guard|
       #   @selected_days << guard.attributes.select { |key, value| value == true }.keys
       #   @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
       # end
-
-
 
   end
 end

@@ -1,8 +1,8 @@
 .footer {
-  background-color: #b6c4c1; // Background color
+  background-color: #c4c3c3; // Background color
   color: #f8f9fa; // Text color
-  // padding: 1rem 0;
-  font-family: "Roboto", sans-serif;
+  padding: 1rem 0;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.8rem;
   margin-top: 32px;
 
@@ -32,8 +32,7 @@
     margin-bottom: 0.3rem;
   }
 
-  p,
-  a {
+  p, a {
     margin: 0;
     line-height: 1.2;
     color: #f8f9fa;
@@ -49,4 +48,10 @@
     color: #ffffff;
     margin-top: 0.5rem;
   }
+}
+
+.page-wrapper {
+  display: flex;            // Enables Flexbox
+  flex-direction: column;   // Stack children vertically (top-to-bottom)
+  min-height: 45vh;        // Ensure the wrapper takes up the full viewport height
 }

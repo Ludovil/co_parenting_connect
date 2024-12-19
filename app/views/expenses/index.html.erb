@@ -4,7 +4,7 @@
   <%# expenses and equitable part%>
 <div class="row justify-content-center pt-4">
     <div class="col-md-4">
-      <div class="card">
+      <div class="card expenses-card">
         <div class="card-body">
           <h3 class="card-title">Summary</h3>
           <ul class="list-group list-group-flush">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-md-8">
-      <div class="card">
+      <div class="card expenses-card">
         <div class="card-body">
           <h3 class="card-title">User Contributions</h3>
           <ul class="list-group list-group-flush">
@@ -46,7 +46,7 @@
   </div>
 
     </div>
-    <div class="col-auto d-flex justify-content-end">
+    <div class="col-auto d-flex justify-content-end pt-3">
       <%= link_to new_child_expense_path, data: { bs_toggle: "modal", bs_target: "#expense-modal-new" }, class: 'btn btn-flat me-3' do %>
     <i class="fa-solid fa-plus me-1"></i> Add an expense
     <% end %>
@@ -121,12 +121,9 @@
                 <%= render "show", expense: expense %>
               </div>
               <div class="modal-footer">
-                <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-sm btn-flat me-2" %>
-
-
                 <%= link_to "Delete", expense_path(expense),
-                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
-                    class: "btn btn-sm btn-ghost" %>
+                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-sm btn-ghost" %>
+                <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-flat me-2" %>
               </div>
             </div>
           </div>

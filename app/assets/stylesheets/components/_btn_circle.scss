@@ -1,0 +1,27 @@
+.btn-circle {
+  width: 34px;
+  height: 34px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 17px;
+  background: $green;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-circle:hover{
+  background: $dark-green;
+  color: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-direction: row;
+}
