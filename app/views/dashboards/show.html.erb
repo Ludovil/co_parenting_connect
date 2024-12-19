@@ -1,7 +1,6 @@
-
 <h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %></h1>
 
-<h2 class="text-md-center mb-3">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
+<h2 class="text-md-center">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
 <div class="container">
   <div class="row">
     <div class="col-3">
@@ -52,7 +51,6 @@
         </div>
       </div>
   </div>
-
 
   <div class="card-body p-0">
     <% if @children.any? %>
@@ -116,7 +114,6 @@
                 <i class="fa-solid fa-file me-1"></i> Documents
               <% end %>
 
-
               <%= link_to child_events_path(child), class: "btn btn-outline-primary btn-sm text-start" do %>
                 <i class="fa-solid fa-calendar-days me-1"></i> Events
               <% end %>
@@ -171,7 +168,6 @@
                 <p class="text-muted mb-2"><small><strong>Status:</strong> <%= invitation.status.capitalize %></small></p>
               </div>
               <% if invitation.status == 'pending' %>
-
                 <div class="d-flex gap-1">
                   <%= link_to 'Cancel', reject_invitation_path(invitation), method: :patch, class: "btn btn-outline-danger btn-sm", data: { confirm: "Are you sure?" } %>
                 </div>
@@ -179,21 +175,6 @@
             </div>
           </div>
         <% end %>
-
-                <%= link_to '', accept_invitation_path(invitation), method: :patch %>
-                <%= button_to 'Cancel', reject_invitation_path(invitation), method: :patch, class: "btn no-border hover-effect" %>
-              <% end %>
-            </div>
-          <% end %>
-          <% @invits.each do |invitation| %>
-            <div>
-              <p>Invitation received from: <%= invitation.family.name %></p>
-              <p>Sent by: <%= invitation.user.email %></p>
-              <p>Status: <%= invitation.status %></p>
-              <% if invitation.status == 'pending' %>
-                <%= button_to 'Accept', accept_invitation_path(invitation), method: :patch, data: { confirm: "Are you sure?" }, class: "btn no-border hover-effect" %>
-                <%= button_to 'Reject', reject_invitation_path(invitation), method: :patch, class: "btn no-border hover-effect" %>
-
 
         <!-- Received Invitations -->
         <% @invits.each do |invitation| %>
