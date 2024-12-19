@@ -121,12 +121,9 @@
                 <%= render "show", expense: expense %>
               </div>
               <div class="modal-footer">
-                <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-sm btn-flat me-2" %>
-
-
                 <%= link_to "Delete", expense_path(expense),
-                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
-                    class: "btn btn-sm btn-ghost" %>
+                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-sm btn-ghost" %>
+                <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-flat me-2" %>
               </div>
             </div>
           </div>
