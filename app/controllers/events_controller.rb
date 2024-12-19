@@ -16,33 +16,34 @@ class EventsController < ApplicationController
     @children = @family.children
   end
   def create
-    if @children
-      valid = true
-      @children.each do |child|
-        params_to_create = event_params
-        params_to_create.delete(:child_ids)
-        user_id = params_to_create.delete(:user_ids)
-        @event = Event.new(params_to_create)
-        @event.child = child
-        @event.user = current_user
-        @event.user_receiver_id = user_id[0]
-        valid = @events.save
-      end
-      if valid
-        redirect_to child_events_path(@child), notice: 'Event was successfully created.'
-      else
-        render :new
-      end
-    else
-      @event = Event.new(event_params)
-      @event.child = @child
-      if @event.save
-        redirect_to @event, notice: 'Event was successfully created.'
-      else
-        render :new
-      end
+
+  if params[:event][:child_ids].present?
+    valid = true
+    child_ids = params[:event][:child_ids]
+    child_ids.each do |child_id|
+      # Create an event for each child
+      event = Event.new(event_params.except(:child_ids, :user_ids)) # Remove non-attribute params
+      event.child_id = child_id
+      event.user = current_user # Assuming the event belongs to the current user
+      event.user_receiver_id = params[:event][:user_ids].first # Assign the first receiver for simplicity
+
+      valid &&= event.save
     end
+
+    if valid
+      redirect_to events_path, notice: 'Events were successfully created.'
+
+    else
+      flash.now[:alert] = 'Error creating one or more events.'
+      render :new
+    end
+  else
+    flash.now[:alert] = 'Please select at least one child.'
+    render :new
   end
+
+end
+
   def edit
     @event
     @children = Child.all
@@ -56,8 +57,10 @@ class EventsController < ApplicationController
     end
   end
   def destroy
+    @child = Child.find(params[:child_id])
+    @event = @child.events.find(params[:id])
     @event.destroy
-    redirect_to child_events_path(@event.child), notice: 'Event was successfully deleted.'
+    redirect_to child_events_path(@child), notice: 'Event was successfully deleted.'
   end
   private
   def set_event

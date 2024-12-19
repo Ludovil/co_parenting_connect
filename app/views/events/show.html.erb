@@ -15,6 +15,6 @@
 </div>
 
 <div class="actions">
-  <%= link_to 'Delete', child_event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <%= link_to 'Delete', child_event_path(@event.child_id, @event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   <%= link_to 'Back to Events', child_events_path(@child), class: 'btn btn-back' %>
 </div>
