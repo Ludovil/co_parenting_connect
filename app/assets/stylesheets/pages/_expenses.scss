@@ -68,10 +68,12 @@
   font-size: 16px;
 }
 
-p{
-  font-family: Helvetica;
-}
-
 .list-group-item{
   font-size: 16px;
+}
+
+.card.expenses-card {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 20px;
 }
