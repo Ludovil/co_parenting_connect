@@ -97,43 +97,40 @@
       <% end %>
 
 
-
-      <!-- <%= @guards.first %> -->
-
       <%= link_to 'Month view', dashboard_path(month: true) %>
       <%= link_to 'Week view', dashboard_path(week: true) %>
 
-<% if (params[:month].nil? && params[:week].nil?) || (params[:month].present? && params[:month]) %>
-  <%= month_calendar(events: @events) do |date, events| %>
-    <% day_name = date.strftime("%A") %>
-    <div data-controller="highlight"
-         data-highlight-selected-days-value="<%= @days_and_guards.to_json %>"
-         data-highlight-user-value="<%= current_user.first_name %>">
-      <div class="guard-day"><%= day_name %></div>
-      <% events.each do |event| %>
-        <div class="event">
-          <p><%= event.title %></p>
-          <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
-        </div>
+      <% if (params[:month].nil? && params[:week].nil?) || (params[:month].present? && params[:month]) %>
+        <%= month_calendar(events: @events) do |date, events| %>
+          <% day_name = date.strftime("%A") %>
+          <div data-controller="highlight"
+              data-highlight-selected-days-value="<%= @days_and_guards.to_json %>"
+              data-highlight-user-value="<%= current_user.first_name %>">
+            <div class="guard-day"><%= day_name %></div>
+            <% events.each do |event| %>
+              <div class="event">
+                <p><%= event.title %></p>
+                <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% elsif params[:week].present? && params[:week] %>
+        <%= week_calendar(events: @events) do |date, events| %>
+          <% day_name = date.strftime("%A") %>
+          <div data-controller="highlight"
+              data-highlight-selected-days-value="<%= @days_and_guards.to_json %>"
+              data-highlight-user-value="<%= current_user.first_name %>">
+            <div class="guard-day"><%= day_name %></div>
+            <% events.each do |event| %>
+              <div class="event">
+                <p><%= event.title %></p>
+                <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
-    </div>
-  <% end %>
-<% elsif params[:week].present? && params[:week] %>
-  <%= week_calendar(events: @events) do |date, events| %>
-    <% day_name = date.strftime("%A") %>
-    <div data-controller="highlight"
-         data-highlight-selected-days-value="<%= @days_and_guards.to_json %>"
-         data-highlight-user-value="<%= current_user.first_name %>">
-      <div class="guard-day"><%= day_name %></div>
-      <% events.each do |event| %>
-        <div class="event">
-          <p><%= event.title %></p>
-          <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-<% end %>
     </div>
   </div>
 </div>
