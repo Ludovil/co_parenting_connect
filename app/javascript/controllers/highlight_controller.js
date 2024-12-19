@@ -4,10 +4,9 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static values = { selectedDays: Array, user: String };
   connect() {
-    console.log("highlight controller");
+    console.log("Hello from the highlight controller");
     //console.log(this.selectedDaysValue[0].days);
     console.log(this.selectedDaysValue);
-
     this.selectedDaysValue.forEach((element) => {
       const days = element.days;
       const day_user = element.user;
