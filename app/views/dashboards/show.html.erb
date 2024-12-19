@@ -1,5 +1,5 @@
 
-<h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %>!</h1>
+<h1 class="text-md-center">Welcome to your Dashboard, <%= current_user.first_name %></h1>
 
 <h2 class="text-md-center mb-3">Your family : <%= current_user.family ? current_user.family.name : link_to("Create your family", new_family_path) %></h2>
 <div class="container">
@@ -8,48 +8,95 @@
       <% if current_user.family %>
 
       <div class="card-dashboard p-3">
-        <h3>Family Members :</h3>
-        <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    	<h3 class="m-0">Family Members</h3>
+    </div>
+    		<div class="card-body p-0">
+    			<div class="d-flex flex-column gap-3">
+				<div class="border rounded-3 p-2 bg-white shadow-sm">
+						<div class="d-flex flex-column gap-1">
+						<% current_user.family.family_members.each do |member| %>
+          						<p>
+            							<%= member.user.first_name %>
+            							<% if member.is_parent %>
+              								(parent)
+            							<% end %>
+         	 					</p>
+          					<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-          <% current_user.family.family_members.each do |member| %>
-          <p>
-            <%= member.user.first_name %>
-            <% if member.is_parent %>
-              (parent)
+    <div class="card-dashboard p-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">Children</h3>
+    <%= link_to new_family_child_path(current_user.family), class: "btn btn-circle btn-sm", data: { bs_toggle: "modal", bs_target: "#child-modal-new" } do %>
+      <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
+    <% end %>
+    <div class="modal fade" id="child-modal-new" tabindex="-1" role="dialog" aria-labelledby="childModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="childModalTitle">Add a child</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <% if current_user.family  %>
+              <%= render "children/new",
+                        child: Child.new, family: current_user.family %>
             <% end %>
-          </p>
-          <% end %>
+            </div>
+          </div>
         </div>
       </div>
+  </div>
 
-      <p class="text-center"><%= link_to "Add a Child", new_family_child_path(current_user.family), class: "btn btn-flat" %></p>
 
-      <% if @children.any? %>
-        <ul>
-          <% @children.each do |child| %>
-            <li>
-              <strong><%= child.first_name %> <%= child.last_name %></strong>, born on <%= child.birth_date %> <br>
+  <div class="card-body p-0">
+    <% if @children.any? %>
+      <div class="d-flex flex-column gap-3">
+        <% @children.each do |child| %>
+          <div class="border rounded-3 p-2 bg-white shadow-sm">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h4 class="h5 mb-1"><%= child.first_name %> <%= child.last_name %></h4>
+                <p class="text-muted mb-2"><small>Born on <%= child.birth_date.strftime("%B %d, %Y") %></small></p>
+              </div>
+            </div>
 
-                <%= link_to "Edit", edit_child_path(child), class: "btn no-border hover-effect" %>
-                <%= link_to 'Delete', child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn no-border hover-effect' %>
-                <%= link_to "Guard", new_child_guard_path(child), data: { bs_toggle: "modal", bs_target: "#guard-modal-new" }, class: "btn no-border hover-effect" %>
+            <div class="action-buttons mb-2 d-flex justify-content-end gap-1">
+              <%= link_to edit_child_path(child), class: "btn btn-circle btn-sm" do %>
+                <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+              <% end %>
+              <%= link_to child_path(child), data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class: 'btn btn-circle btn-sm' do %>
+                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+              <% end %>
+            </div>
 
+            <div class="d-flex flex-column gap-1">
+              <%= link_to new_child_guard_path(child),
+                  data: { bs_toggle: "modal", bs_target: "#guard-modal-new" },
+                  class: "btn btn-outline-primary btn-sm text-start" do %>
+                <i class="fa-solid fa-shield-halved me-1"></i> Guard
+              <% end %>
               <!-- Modal Guard -->
               <div class="modal fade" id="guard-modal-new" tabindex="-1" role="dialog" aria-labelledby="guardModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="guardModalTitle">Create a guard</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <% if current_user.family && current_user.family.children.any? %>
-          <% child = current_user.family.children.first %>
-          <% guard = child.guards.new(user: current_user) %>
-          <%= render "guards/new",
-                     child: child,
-                     guard: guard,
-                     taken_days: @taken_days || [] %>
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="guardModalTitle">Create a guard</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <% if current_user.family && current_user.family.children.any? %>
+                        <% child = current_user.family.children.first %>
+                        <% guard = child.guards.new(user: current_user) %>
+                        <%= render "guards/new",
+                                  child: child,
+                                  guard: guard,
+                                  taken_days: @taken_days || [] %>
         <% else %>
           <p>No children found</p>
         <% end %>
@@ -57,39 +104,82 @@
     </div>
   </div>
 </div>
+              <%= link_to new_child_event_path(child), class: "btn btn-outline-primary btn-sm text-start" do %>
+                <i class="fa-solid fa-calendar me-1"></i> Event
+              <% end %>
+
+              <%= link_to child_expenses_path(child), class: "btn btn-outline-primary btn-sm text-start" do %>
+                <i class="fa-solid fa-receipt me-1"></i> Expenses
+              <% end %>
+
+              <%= link_to documents_path(child), class: "btn btn-outline-primary btn-sm text-start" do %>
+                <i class="fa-solid fa-file me-1"></i> Documents
+              <% end %>
 
 
-
-                <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
-                <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
-                <%= link_to "Documents", documents_path(child), class: "btn no-border hover-effect" %>
-                <%= link_to "Events", child_events_path(child), class: "btn no-border hover-effect" %>
-
-
-            </li>
-          <% end %>
-        </ul>
-
-
-      <% else %>
-        <p>No children added yet.</p>
-      <% end %>
-
-      <div class="card-dashboard p-3">
-        <h3>Send an invitation</h3>
-        <div class="card-body">
-          <p><%= render 'invitations/form' %></p>
-        </div>
+              <%= link_to child_events_path(child), class: "btn btn-outline-primary btn-sm text-start" do %>
+                <i class="fa-solid fa-calendar-days me-1"></i> Events
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <% end %>
+    <% else %>
+      <div class="text-center py-3">
+        <i class="fa-solid fa-child fa-2x text-muted mb-2"></i>
+        <p class="text-muted small">No children added yet.</p>
+        <%= link_to new_family_child_path(current_user.family), class: "btn btn-primary btn-sm" do %>
+          <i class="fa-solid fa-plus me-1"></i>Add Child
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+      <!--Send an invitation-->
       <div class="card-dashboard p-3">
-        <h3>Invitations</h3>
-        <div class="card-body">
-          <% @invitations.each do |invitation| %>
-            <div>
-              <p>Sent to: <%= invitation.recipient.email %></p>
-              <p>Status: <%= invitation.status %></p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="m-0">Send an invitation</h3>
+          </div>
+              <div class="card-body p-0">
+                <div class="d-flex flex-column gap-3">
+                  <div class="border rounded-3 p-2 bg-white shadow-sm">
+                    <div class="d-flex flex-column gap-1">
+                      <p><%= render 'invitations/form' %></p>
+                    </div>
+                  </div>
+                </div>
+			        </div>
+		        </div>
+      <% end %>
+
+      <!--Invitations-->
+      <div class="card-dashboard p-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">Invitations</h3>
+  </div>
+
+  <div class="card-body p-0">
+    <% if @invitations.any? || @invits.any? %>
+      <div class="d-flex flex-column gap-3">
+        <!-- Sent Invitations -->
+        <% @invitations.each do |invitation| %>
+          <div class="border rounded-3 p-2 bg-white shadow-sm">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="m-0"><strong>Sent to:</strong> <%= invitation.recipient.email %></p>
+                <p class="text-muted mb-2"><small><strong>Status:</strong> <%= invitation.status.capitalize %></small></p>
+              </div>
               <% if invitation.status == 'pending' %>
+
+                <div class="d-flex gap-1">
+                  <%= link_to 'Cancel', reject_invitation_path(invitation), method: :patch, class: "btn btn-outline-danger btn-sm", data: { confirm: "Are you sure?" } %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
                 <%= link_to '', accept_invitation_path(invitation), method: :patch %>
                 <%= button_to 'Cancel', reject_invitation_path(invitation), method: :patch, class: "btn no-border hover-effect" %>
               <% end %>
@@ -104,11 +194,35 @@
                 <%= button_to 'Accept', accept_invitation_path(invitation), method: :patch, data: { confirm: "Are you sure?" }, class: "btn no-border hover-effect" %>
                 <%= button_to 'Reject', reject_invitation_path(invitation), method: :patch, class: "btn no-border hover-effect" %>
 
+
+        <!-- Received Invitations -->
+        <% @invits.each do |invitation| %>
+          <div class="border rounded-3 p-2 bg-white shadow-sm">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="m-0"><strong>From:</strong> <%= invitation.family.name %></p>
+                <p class="text-muted mb-1"><small><strong>Sent by:</strong> <%= invitation.user.email %></small></p>
+                <p class="text-muted mb-2"><small><strong>Status:</strong> <%= invitation.status.capitalize %></small></p>
+              </div>
+              <% if invitation.status == 'pending' %>
+                <div class="d-flex gap-1">
+                  <%= button_to 'Accept', accept_invitation_path(invitation), method: :patch, class: "btn btn-outline-success btn-sm", data: { confirm: "Are you sure?" } %>
+                  <%= button_to 'Reject', reject_invitation_path(invitation), method: :patch, class: "btn btn-outline-danger btn-sm", data: { confirm: "Are you sure?" } %>
+                </div>
               <% end %>
             </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
+    <% else %>
+      <div class="text-center py-3">
+        <i class="fa-solid fa-envelope fa-2x text-muted mb-2"></i>
+        <p class="text-muted small">No invitations available.</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
     </div>
 
     <div class="col-9">
