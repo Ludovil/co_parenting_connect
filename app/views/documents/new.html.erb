@@ -1,6 +1,44 @@
-<h1>Upload Document</h1>
+<h1>Add a New Document</h1>
 
-<%= simple_form_for @document, url: documents_path, method: :post, html: { multipart: true } do |form| %>
-  <%= form.input :files, as: :file, label: "Upload Document(s)", input_html: { multiple: true } %>
-  <%= form.button :submit, "Upload", class: "btn btn-primary" %>
-<% end %>
+<%= link_to "Back to Documents", documents_path, class: "btn btn-secondary" %>
+
+
+<div id="dropzone" class="dropzone">
+  <p>Drag and drop files here, or click to upload.</p>
+</div>
+
+<button id="submit-button" type="button" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+
+<script type="module">
+  import Dropzone from "dropzone";
+
+  const dropzone = new Dropzone("#dropzone", {
+    url: "<%= documents_path %>",
+    paramName: "document[files][]",
+    maxFilesize: 10,
+    addRemoveLinks: true,
+    acceptedFiles: ".pdf,.doc,.docx,.txt,.jpg,.png",
+    headers: {
+      "X-CSRF-Token": "<%= form_authenticity_token %>"
+    },
+    autoProcessQueue: false,
+  });
+
+  const submitButton = document.getElementById("submit-button");
+  submitButton.addEventListener("click", () => {
+    if (dropzone.getQueuedFiles().length > 0) {
+      dropzone.processQueue();
+    } else {
+      console.log("No files to upload.");
+    }
+  });
+
+  dropzone.on("queuecomplete", () => {
+    console.log("All files uploaded successfully.");
+    window.location.href = "<%= documents_path %>";
+  });
+
+  dropzone.on("error", (file, errorMessage) => {
+    console.error("Upload error:", errorMessage);
+  });
+</script>

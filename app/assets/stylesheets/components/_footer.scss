@@ -1,0 +1,52 @@
+.footer {
+  background-color: #b6c4c1; // Background color
+  color: #f8f9fa; // Text color
+  // padding: 1rem 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.8rem;
+  margin-top: 32px;
+
+  .footer-left {
+    max-width: 25%; // Fixed width for Contact Us section
+    text-align: left;
+  }
+
+  .footer-middle {
+    flex-grow: 1; // This ensures the middle section grows to create the blank space
+  }
+
+  .footer-right {
+    max-width: 25%; // Fixed width for Logo section
+    text-align: right;
+
+    .footer-logo {
+      max-width: 100px; // Reduce logo size
+      height: auto;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  h5 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+
+  p,
+  a {
+    margin: 0;
+    line-height: 1.2;
+    color: #f8f9fa;
+    font-size: 0.9rem;
+
+    &:hover {
+      color: #28a745; // Hover effect
+    }
+  }
+
+  .text-center small {
+    font-size: 0.75rem;
+    color: #ffffff;
+    margin-top: 0.5rem;
+  }
+}
