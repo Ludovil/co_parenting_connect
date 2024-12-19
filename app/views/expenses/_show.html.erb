@@ -1,10 +1,26 @@
-<div class="d-flex justify-content-between align-items-center">
-  <div class="expense-date">
-    <p class="mb-1"><strong>Date:</strong> <%= expense.date %></p>
-  </div>
-  <div class="expense-description">
-  <p class="mb-1"><strong>Category:</strong> <%= expense.category %></p>
-  <p class="mb-1"><strong>Description:</strong> <%= expense.description %></p>
-  <p class="mb-1"><strong>Payer:</strong> <%= expense.user.first_name %>
+<div class="modal-body d-flex flex-column justify-content-between h-100">
+  <div class="d-flex align-items-center mb-3">
+    <div class="w-50">
+      <label for="expense-date"><strong>Date:</strong></label>
+      <p id="expense-date"><%= expense.date %></p>
     </div>
+    <div class="w-50 text-end">
+      <label for="expense-amount"><strong>Amount:</strong></label>
+      <p id="expense-amount" class="text-primary fs-3"><strong><%= number_to_currency(expense.amount, unit: "€", format: "%n %u") %></strong></p>
+    </div>
+  </div>
+  <div class="d-flex flex-column justify-content-between h-100">
+    <div class="mb-3">
+      <label for="expense-category"><strong>Category:</strong></label>
+      <p id="expense-category"><%= expense.category %> <i class="fas fa-lg <%= expense.category_icon %>"></i></p>
+    </div>
+    <div>
+      <label for="expense-description"><strong>Description:</strong></label>
+      <p id="expense-description"><%= expense.description %></p>
+    </div>
+    <div class="mb-3">
+      <label for="expense-paid-by"><strong>Paid by:</strong></label>
+      <p id="expense-paid-by"><%= expense.user.first_name %></p>
+    </div>
+  </div>
 </div>
