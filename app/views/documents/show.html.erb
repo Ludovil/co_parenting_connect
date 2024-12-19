@@ -1,12 +1,32 @@
-<h1>Document Files</h1>
-<ul>
-  <% @document.files.each do |file| %>
-    <li>
-      <%= link_to file.filename.to_s, url_for(file), target: "_blank" %>
-      <%= link_to "Delete", delete_file_document_path(@document, file_id: file.id),
-            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-            class: "btn btn-sm btn-danger" %>
-    </li>
-  <% end %>
-</ul>
-<%= link_to "Back to Documents", documents_path %>
+<div class="container-md pt-3">
+  <!-- Page Header -->
+  <h1 class="show-documents-header">Document Files</h1>
+  <!-- Back to Documents Button -->
+  <div class="show-documents-actions d-flex">
+    <%= link_to documents_path, class: "show-documents-btn-rounded d-inline-flex align-items-center justify-content-center" do %>
+      <i class="fas fa-arrow-left me-2"></i> Back to Documents
+    <% end %>
+  </div>
+  <!-- File List -->
+  <div class="show-documents-list pt-3">
+    <% if @document.files.empty? %>
+      <p class="show-documents-empty-message">No files available for this document.</p>
+    <% else %>
+      <% @document.files.each do |file| %>
+        <div class="show-documents-card-item card d-flex flex-row align-items-center justify-content-between my-3">
+          <!-- File Details -->
+          <div class="show-documents-details flex-grow-1">
+            <p class="show-documents-filename mb-1"><strong>Filename:</strong> <%= file.filename.to_s %></p>
+          </div>
+          <!-- Action Buttons -->
+          <div class="show-documents-actions d-flex gap-2">
+            <%= link_to "View", url_for(file), target: "_blank", class: "show-documents-btn-rounded btn-outline-success me-2" %>
+            <%= link_to "Delete", delete_file_document_path(@document, file_id: file.id),
+                           data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                           class: "show-documents-btn-rounded btn-outline-danger" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

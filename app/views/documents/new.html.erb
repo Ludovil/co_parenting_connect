@@ -1,17 +1,25 @@
-<h1>Add a New Document</h1>
-
-<%= link_to "Back to Documents", documents_path, class: "btn btn-secondary" %>
-
-
-<div id="dropzone" class="dropzone">
-  <p>Drag and drop files here, or click to upload.</p>
+<div class="documents-new-page container-md pt-3">
+  <!-- Page Header -->
+  <h1 class="documents-header">Add a New Document</h1>
+  <!-- Back Button -->
+  <div class="documents-back-btn mb-3">
+    <%= link_to "Back to Documents", documents_path, class: "documents-btn-rounded d-inline-flex align-items-center" %>
+  </div>
+  <!-- Dropzone Upload Section -->
+  <div class="documents-dropzone-section">
+    <div id="dropzone" class="documents-dropzone">
+      <p class="documents-dropzone-text">Drag and drop files here, or click to upload.</p>
+    </div>
+  </div>
+  <!-- Submit Button -->
+  <div class="documents-actions d-flex justify-content-center mt-3">
+    <button id="submit-button" type="button" class="documents-btn-rounded d-inline-flex align-items-center">
+      <i class="fas fa-upload me-2"></i> Submit
+    </button>
+  </div>
 </div>
-
-<button id="submit-button" type="button" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
-
 <script type="module">
   import Dropzone from "dropzone";
-
   const dropzone = new Dropzone("#dropzone", {
     url: "<%= documents_path %>",
     paramName: "document[files][]",
@@ -23,7 +31,6 @@
     },
     autoProcessQueue: false,
   });
-
   const submitButton = document.getElementById("submit-button");
   submitButton.addEventListener("click", () => {
     if (dropzone.getQueuedFiles().length > 0) {
@@ -32,12 +39,10 @@
       console.log("No files to upload.");
     }
   });
-
   dropzone.on("queuecomplete", () => {
     console.log("All files uploaded successfully.");
     window.location.href = "<%= documents_path %>";
   });
-
   dropzone.on("error", (file, errorMessage) => {
     console.error("Upload error:", errorMessage);
   });
