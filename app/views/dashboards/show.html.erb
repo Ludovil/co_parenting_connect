@@ -110,6 +110,9 @@
             <% events.each do |event| %>
               <div class="event">
                 <p><%= event.title %></p>
+                <p><%= event.start_date.strftime("%H:%M") %></p>
+                <p><%= event.end_date.strftime("%H:%M") %></p>
+                <p><%= event.user.first_name %></p>
                 <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
               </div>
             <% end %>
@@ -125,6 +128,9 @@
             <% events.each do |event| %>
               <div class="event">
                 <p><%= event.title %></p>
+                <p><%= event.start_date.strftime("%H:%M") %></p>
+                <p><%= event.end_date.strftime("%H:%M") %></p>
+                <p><%= event.user.first_name %></p>
                 <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
               </div>
             <% end %>
