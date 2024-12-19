@@ -1,7 +1,20 @@
 class DashboardsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    # Scope your query to the dates being shown:
+    start_date = params.fetch(:start_date, Date.today).to_date
+
+    # For a monthly view:
+    @events = Event.where(start_date: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+
+    # Or, for a weekly view:
+    # @events = Event.where(start_date: start_date.beginning_of_week..start_date.end_of_week)
+  end
+
   def show
+    start_date = params.fetch(:start_date, Date.today).to_date
+    @events = Event.where(start_date: start_date.beginning_of_month..start_date.end_of_month)
     @invitations = current_user.invitations
     @invitation = Invitation.new
     @invits = Invitation.where(recipient_id: current_user.id)
@@ -40,5 +53,8 @@ class DashboardsController < ApplicationController
       #   @selected_days << guard.attributes.select { |key, value| value == true }.keys
       #   @days_and_guards << {days: @selected_days.flatten, user: guard.user.first_name}
       # end
+
+
+
   end
 end
