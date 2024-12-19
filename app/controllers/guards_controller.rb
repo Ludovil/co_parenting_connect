@@ -41,12 +41,12 @@ class GuardsController < ApplicationController
     @guard = @child.guards.new(guard_params)
 
     if @guard.save
-      redirect_to child_guards_path(@child), notice: 'Guard was successfully created.'
+      redirect_to dashboard_path(current_user), notice: 'Guard was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
     else
-    redirect_to child_guards_path(@child), alert: 'You are not authorized to create a guard for this child.'
+    redirect_to dashboard_path(current_user), alert: 'You are not authorized to create a guard for this child.'
     end
   end
 
