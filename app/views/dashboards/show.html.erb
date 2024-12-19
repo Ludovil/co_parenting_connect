@@ -249,14 +249,19 @@
               data-highlight-selected-days-value="<%= @days_and_guards.to_json %>"
               data-highlight-user-value="<%= current_user.first_name %>">
             <div class="guard-day"><%= day_name %></div>
-            <% events.each do |event| %>
-              <div class="event">
-                <p><%= event.title %></p>
-                <p><%= event.start_date.strftime("%H:%M") %></p>
-                <p><%= event.end_date.strftime("%H:%M") %></p>
-                <p><%= event.user.first_name %></p>
-                <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
-              </div>
+
+            <%if @current_user.family.present?%>
+              <% @events.each do |event| %>
+                <% if date >= event.start_date.to_date && date <= event.end_date.to_date %>
+                  <div class="event">
+                    <p><%= event.title %></p>
+                    <p><%= event.start_date.strftime("%H:%M") if date == event.start_date.to_date %></p>
+                    <p><%= event.end_date.strftime("%H:%M") if date == event.end_date.to_date %></p>
+                    <p><%= event.user.first_name %></p>
+                    <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
+                  </div>
+                <% end %>
+              <%end%>
             <% end %>
           </div>
         <% end %>
@@ -267,14 +272,18 @@
               data-highlight-selected-days-value="<%= @days_and_guards.to_json %>"
               data-highlight-user-value="<%= current_user.first_name %>">
             <div class="guard-day"><%= day_name %></div>
-            <% events.each do |event| %>
-              <div class="event">
-                <p><%= event.title %></p>
-                <p><%= event.start_date.strftime("%H:%M") %></p>
-                <p><%= event.end_date.strftime("%H:%M") %></p>
-                <p><%= event.user.first_name %></p>
-                <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
-              </div>
+            <%if @current_user.family.present?%>
+              <% @events.each do |event| %>
+                <% if date >= event.start_date.to_date && date <= event.end_date.to_date %>
+                  <div class="event">
+                    <p><%= event.title %></p>
+                    <p><%= event.start_date.strftime("%H:%M") if date == event.start_date.to_date %></p>
+                    <p><%= event.end_date.strftime("%H:%M") if date == event.end_date.to_date %></p>
+                    <p><%= event.user.first_name %></p>
+                    <small><%= event.start_date.strftime("%d %b %Y") unless event.multi_days? %></small>
+                  </div>
+                <% end %>
+              <%end%>
             <% end %>
           </div>
         <% end %>
