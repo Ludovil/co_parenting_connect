@@ -10,11 +10,15 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "Dashboard", dashboard_path, class: "nav-link" %>
+            <% if params[:controller] == "dashboards" && params[:action] == "show" %>
+              <%= link_to "Home", root_path, class: "nav-link" %>
+            <% else %>
+              <%= link_to "Dashboard", dashboard_path, class: "nav-link" %>
+            <% end %>
           </li>
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "default-profile-img.png", class: "avatar", alt: "dropdown menu" %>
+            <%= image_tag "avatar-default.png", class: "avatar", alt: "dropdown menu" %>
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
