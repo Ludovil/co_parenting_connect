@@ -1,20 +1,50 @@
-<h1>Documents</h1>
-
-<%= link_to "Add Document", new_document_path, class: "btn btn-primary", style: "margin-top: 10px;" %>
-
-<% if @documents.any? { |document| document.files.attached? }%>
-  <ul>
-    <% @documents.each do |document| %>
-      <% if document.files.attached? %>
+<div class="container-md pt-3">
+  <!-- Summary Section -->
+  <div class="documents-summary-section row pt-4">
+    <div class="col-md-4">
+      <div class="documents-card card">
+        <div class="card-body">
+          <h3 class="card-title">Summary</h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <span class="fw-bold">Total Documents:</span>
+              <%= @documents.count %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Document Button -->
+  <div class="documents-btn-container">
+    <%= link_to new_document_path, class: "documents-btn-rounded d-inline-flex align-items-center justify-content-center" do %>
+      <i class="fas fa-plus me-2"></i> Add Document
+    <% end %>
+  </div>
+</div>
+  <!-- Documents List -->
+  <div class="documents-list pt-2">
+    <% if @documents.empty? %>
+      <p class="documents-empty-message text-center">This folder is empty. Add a document to the folder.</p>
+    <% else %>
+      <% @documents.each do |document| %>
         <% document.files.each do |file| %>
-          <li>
-            <%= link_to file.filename.to_s, url_for(file), target: "_blank" %>
-            <%= link_to "Delete", document_path(document), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-          </li>
+          <div class="documents-card-item card d-flex flex-row align-items-center justify-content-between my-3">
+            <!-- Document Details -->
+            <div class="documents-details flex-grow-1">
+              <p class="documents-filename mb-1"><strong><%= file.filename.to_s %></strong></p>
+              <p class="documents-upload-date mb-0">Uploaded on: <%= document.created_at.strftime("%B %d, %Y") %></p>
+            </div>
+            <!-- Action Buttons -->
+            <div class="documents-actions d-flex gap-2">
+              <%= link_to "View", url_for(file), target: "_blank", class: "btn btn-sm btn-outline-success documents-btn-sm" %>
+              <%= link_to "Delete", document_path(document), method: :delete,
+                             data: { turbo_confirm: "Are you sure?" },
+                             class: "btn btn-sm btn-outline-danger documents-btn-sm" %>
+            </div>
+          </div>
         <% end %>
       <% end %>
     <% end %>
-  </ul>
-<% else %>
-        <p style="color: grey; margin-top: 20px;">This folder is empty. Add a document to the folder.</p>
-<% end %>
+  </div>
+</div>

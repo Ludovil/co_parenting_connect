@@ -1,0 +1,94 @@
+.show-documents-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.show-documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.show-documents-card-item {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.show-documents-details {
+  flex-grow: 1;
+
+  .show-documents-filename {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.show-documents-actions {
+  display: flex;
+  gap: 10px;
+
+  .btn-outline-success {
+    background-color: #6ca99e;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: #5c958b;
+    }
+  }
+
+  .btn-outline-danger {
+    background-color: #f5a623;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: #e6951f;
+    }
+  }
+}
+
+.show-documents-empty-message {
+  font-size: 18px;
+  color: grey;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.show-documents-btn-rounded {
+  background-color: #6ca99e; // Button background color
+  color: white; // Text and icon color
+  font-size: 16px; // Font size
+  font-weight: 500; // Slightly bold text
+  padding: 10px 20px; // Vertical and horizontal padding
+  border: none; // Remove borders
+  border-radius: 50px; // Rounded corners to make it pill-shaped
+  text-decoration: none; // Remove link underlines
+  display: inline-flex; // Flexbox to center icon and text
+  align-items: center; // Vertically center icon and text
+  justify-content: center; // Horizontally center content
+  gap: 8px; // Spacing between icon and text
+  transition: all 0.3s ease; // Smooth transition on hover
+
+  i {
+    font-size: 18px; // Icon size
+  }
+
+  &:hover {
+    background-color: #5c958b; // Darker green on hover
+    transform: scale(1.05); // Slightly enlarge the button
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); // Add subtle shadow
+  }
+
+  &:focus {
+    outline: none; // Remove default focus outline
+    box-shadow: 0 0 0 3px rgba(108, 169, 158, 0.5); // Custom focus outline
+  }
+}
