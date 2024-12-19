@@ -62,9 +62,7 @@
 
                 <%= link_to "Event", new_child_event_path(child), class: "btn no-border hover-effect" %>
                 <%= link_to "Expenses", child_expenses_path(child), class: "btn no-border hover-effect" %>
-
                 <%= link_to "Documents", documents_path(child), class: "btn no-border hover-effect" %>
-
                 <%= link_to "Events", child_events_path(child), class: "btn no-border hover-effect" %>
 
 
@@ -92,8 +90,8 @@
               <p>Sent to: <%= invitation.recipient.email %></p>
               <p>Status: <%= invitation.status %></p>
               <% if invitation.status == 'pending' %>
-                <%= link_to 'Accept', accept_invitation_path(invitation), method: :patch %>
-                <%= link_to 'Cancel', reject_invitation_path(invitation), method: :patch %>
+                <%= link_to '', accept_invitation_path(invitation), method: :patch %>
+                <%= button_to 'Cancel', reject_invitation_path(invitation), method: :patch, class: "btn no-border hover-effect" %>
               <% end %>
             </div>
           <% end %>
@@ -102,10 +100,9 @@
               <p>Invitation received from: <%= invitation.family.name %></p>
               <p>Sent by: <%= invitation.user.email %></p>
               <p>Status: <%= invitation.status %></p>
-              <p>ID: <%= invitation.id %></p>
               <% if invitation.status == 'pending' %>
-                <%= button_to 'Accept', accept_invitation_path(invitation), method: :patch, data: { confirm: "Are you sure?" } %>
-                <%= button_to 'Reject', reject_invitation_path(invitation), method: :patch %>
+                <%= button_to 'Accept', accept_invitation_path(invitation), method: :patch, data: { confirm: "Are you sure?" }, class: "btn no-border hover-effect" %>
+                <%= button_to 'Reject', reject_invitation_path(invitation), method: :patch, class: "btn no-border hover-effect" %>
 
               <% end %>
             </div>
