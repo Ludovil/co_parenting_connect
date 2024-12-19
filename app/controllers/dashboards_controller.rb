@@ -15,10 +15,11 @@ class DashboardsController < ApplicationController
   def show
     start_date = params.fetch(:start_date, Date.today).to_date
     @events = Event.where(start_date: start_date.beginning_of_month..start_date.end_of_month)
-    # @events = Event.joins(:user).where(
-    #   start_date: start_date.beginning_of_month..start_date.end_of_month,
-    #   users: { family_id: current_user.family }
-    # )
+    # @events = Event.joins(child: { family: { family_members: :user } })
+    #            .where(
+    #              start_date: start_date.beginning_of_month..start_date.end_of_month,
+    #              family_members: { family_id: current_user.family.id }
+    #            ).distinct
     @invitations = current_user.invitations
     @invitation = Invitation.new
     @invits = Invitation.where(recipient_id: current_user.id)
